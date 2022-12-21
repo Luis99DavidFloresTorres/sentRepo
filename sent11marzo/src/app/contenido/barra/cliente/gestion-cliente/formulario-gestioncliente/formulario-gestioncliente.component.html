@@ -1,0 +1,91 @@
+<div >
+  <div fxLayoutAlign="center center" fxLayoutGap="10%">
+    <button mat-raised-button style="background-color:#908E8D;">Nuevo<mat-icon>add</mat-icon></button>
+    <button mat-raised-button style="background-color:#908E8D;">Guardar<mat-icon>save</mat-icon></button>
+    <button mat-raised-button style="background-color:#908E8D;">Eliminar<mat-icon>delete</mat-icon></button>
+    <button mat-raised-button style="background-color:#908E8D;">Cerrar<mat-icon>close</mat-icon></button>
+  </div>
+  <div>
+
+    <form fxLayoutAlign="center center" [formGroup]="formGroup" fxLayout="column" >
+      <mat-form-field style="width:350px;" appearance="outline">
+        <mat-label>Código</mat-label>
+        <input matInput formControlName="codigoF" placeholder="CTE-08106">
+      </mat-form-field>
+      <mat-form-field style="width:350px;" appearance="outline">
+        <mat-label>Nombre Cliente</mat-label>
+        <input matInput formControlName="nombreClienteF" placeholder="Programa departamental">
+      </mat-form-field>
+      <mat-form-field style="width:350px;" appearance="outline">
+        <mat-label>Dirección</mat-label>
+        <input matInput formControlName="direccionF" placeholder="dirección">
+      </mat-form-field>
+      <mat-form-field style="width:350px;" appearance="outline">
+        <mat-label>Teléfono</mat-label>
+        <input matInput formControlName="telefonoF" placeholder="teléfono">
+      </mat-form-field>
+      <mat-form-field style="width:350px;" class="selectcliente" appearance="standard">
+        <mat-label>Tipo cliente</mat-label>
+        <mat-select formControlName="tipoclienteF" (selectionChange)="tipoclienteS($any($event).value)" >
+        <mat-option>--</mat-option>
+        <mat-option *ngFor="let clienteFor of tiposcliente" [value]="clienteFor">
+          {{clienteFor}}
+        </mat-option>
+        </mat-select>
+        <button (click)="buscarZonas()" mat-raised-button matSuffix color="primary"><mat-icon >add</mat-icon></button>
+        <mat-hint>Zonas</mat-hint>
+      </mat-form-field>
+      <mat-form-field style="width:350px;" appearance="outline">
+        <mat-label>Ingrese fecha deseada</mat-label>
+        <input required  matInput placeholder="mm-dd-aaaa" name="fecha" formControlName="fechaF" [matDatepicker]="fechaF">
+        <mat-datepicker-toggle matSuffix [for]="fechaF"></mat-datepicker-toggle>
+        <mat-datepicker #fechaF></mat-datepicker>
+      </mat-form-field>
+      <mat-form-field style="width:350px;" class="select1" appearance="standard">
+        <mat-label>Ciudades</mat-label>
+        <mat-select formControlName="ciudadF" (selectionChange)="ciudadS($any($event).value)" >
+        <mat-option>--</mat-option>
+        <mat-option *ngFor="let ciudadFor of ciudades" [value]="ciudadFor">
+          {{ciudadFor}}
+        </mat-option>
+        </mat-select>
+        <button (click)="buscarCiudades()" mat-raised-button matSuffix color="primary"><mat-icon >add</mat-icon></button>
+        <mat-hint>Ciudades</mat-hint>
+      </mat-form-field>
+      <mat-form-field style="width:350px;" class="select2" appearance="standard">
+        <mat-label>Zona</mat-label>
+        <mat-select formControlName="zonaF" (selectionChange)="zonaS($any($event).value)" >
+        <mat-option>--</mat-option>
+        <mat-option *ngFor="let zonaFor of zonas" [value]="zonaFor">
+          {{zonaFor}}
+        </mat-option>
+        </mat-select>
+        <button (click)="buscarZonas()" mat-raised-button matSuffix color="primary"><mat-icon >add</mat-icon></button>
+        <mat-hint>Zonas</mat-hint>
+      </mat-form-field>
+      <mat-form-field style="width:350px;" class="select2" appearance="standard">
+        <mat-label>Tipo cliente descuento</mat-label>
+        <mat-select formControlName="desctoF" (selectionChange)="desctoS($any($event).value)" >
+        <mat-option>--</mat-option>
+        <mat-option *ngFor="let desctoFor of descuentos" [value]="desctoFor">
+          {{desctoFor}}
+        </mat-option>
+        </mat-select>
+        <button (click)="buscarZonas()" mat-raised-button matSuffix color="primary"><mat-icon >add</mat-icon></button>
+        <mat-hint>Descuento</mat-hint>
+      </mat-form-field>
+
+    </form>
+    <div fxLayoutAlign="center center">
+        <mat-label>Actualizado por: {{useract}} en: {{fechaact}}</mat-label>
+
+    </div>
+  </div>
+  <div fxLayoutAlign="center center" fxLayoutGap="10%">
+    <button mat-raised-button style="background-color:#908E8D;" (click)="primer()">Primer<mat-icon>arrow_back_ios</mat-icon></button>
+    <button mat-raised-button style="background-color:#908E8D;" (click)="anterior()">Anterior<mat-icon>fast_rewind</mat-icon></button>
+    <button mat-raised-button style="background-color:#908E8D;" (click)="buscarClientes()">Buscar<mat-icon>search</mat-icon></button>
+    <button mat-raised-button style="background-color:#908E8D;" (click)="siguiente()">Siguiente<mat-icon>fast_forward</mat-icon></button>
+    <button mat-raised-button style="background-color:#908E8D;" (click)="ultimo()">Ultimo<mat-icon>arrow_forward_ios</mat-icon></button>
+  </div>
+</div>

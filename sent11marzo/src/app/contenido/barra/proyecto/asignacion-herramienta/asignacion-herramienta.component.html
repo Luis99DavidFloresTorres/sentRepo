@@ -1,0 +1,63 @@
+
+<div fxLayoutAlign="center center">
+  <button  mat-raised-button><mat-icon>add</mat-icon></button>
+  <button mat-raised-button><mat-icon>save</mat-icon></button>
+  <button mat-raised-button>Anular</button>
+  <button mat-raised-button (click)="buscar()"><mat-icon>search</mat-icon></button>
+  <button mat-raised-button><mat-icon>print</mat-icon></button>
+
+</div>
+<form style="width: 500px;" [formGroup]="documento" fxLayout="column">
+  <div fxLayoutGap="15px">
+    <mat-form-field>
+      <mat-label>Nro doc</mat-label>
+      <input matInput formControlName="nrodoc">
+    </mat-form-field>
+    <mat-form-field appearance="legacy">
+      <mat-label>Ingrese fecha deseada</mat-label>
+      <input required  matInput placeholder="dd-mm-aaaa" name="fecha" formControlName="fecha" [matDatepicker]="fechaF">
+      <mat-datepicker-toggle matSuffix [for]="fechaF"></mat-datepicker-toggle>
+      <mat-datepicker #fechaF></mat-datepicker>
+    </mat-form-field>
+  </div>
+  <mat-form-field>
+    <mat-label>Responsable</mat-label>
+    <input matInput formControlName="responsable">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Observaciones</mat-label>
+    <input matInput formControlName="observaciones">
+  </mat-form-field>
+</form>
+<mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
+  <ng-container matColumnDef="activoFijo.codigo" >
+    <mat-header-cell  *matHeaderCellDef mat-sort-header>Codigo</mat-header-cell>
+    <mat-cell *matCellDef="let element">  {{element.activoFijo.codigo}} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="activoFijo.nombre">
+    <mat-header-cell  *matHeaderCellDef mat-sort-header>Nombre Herramienta</mat-header-cell>
+    <mat-cell *matCellDef="let element">  {{element.activoFijo.nombre}} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="fechaini">
+    <mat-header-cell  *matHeaderCellDef mat-sort-header>Fec. Inicio</mat-header-cell>
+    <mat-cell *matCellDef="let element">  {{element.fechaini |  date:"dd/MM/yy"}} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="detalle">
+    <mat-header-cell  *matHeaderCellDef mat-sort-header>Detalle</mat-header-cell>
+    <mat-cell *matCellDef="let element">  {{element.detalle}} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="activoFijo.unidad">
+    <mat-header-cell  *matHeaderCellDef mat-sort-header>Unidad</mat-header-cell>
+    <mat-cell *matCellDef="let element">  {{element.activoFijo.unidad}} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="activoFijo.estado">
+    <mat-header-cell  *matHeaderCellDef mat-sort-header>Estado</mat-header-cell>
+    <mat-cell *matCellDef="let element">  {{element.activoFijo.estado}} </mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+</mat-table>
+<div fxLayoutAlign="center center">
+  <mat-label>Actualizado por: {{useract}} en: {{fechaact}}</mat-label>
+</div>

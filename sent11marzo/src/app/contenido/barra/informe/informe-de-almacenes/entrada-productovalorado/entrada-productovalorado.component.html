@@ -1,0 +1,113 @@
+<div fxLayoutAlign= "center center" >
+  <mat-form-field  color= "primary" fxFlex="30%">
+    <input matInput id="input" placeholder="buscador" (keyup)="hacerFiltro($any($event.target).value)">
+    <mat-icon fxFlex color="primary">search</mat-icon>
+
+  </mat-form-field> &nbsp;&nbsp;
+</div>
+<div fxLayoutAlign="center center">
+<button mat-raised-button (click)="buscarItems()"><mat-icon>search</mat-icon></button>
+<button mat-raised-button ><mat-icon>print</mat-icon></button>
+</div>
+<form fxLayout="row" [formGroup]="informeVentas" fxLayoutAlign="space-around">
+<mat-card >
+  <mat-card-title>Periodos del Informe</mat-card-title>
+  <mat-form-field appearance="legacy">
+    <mat-label>Desde:</mat-label>
+    <input required  matInput placeholder="mm-dd-aaaa" name="fechaD" formControlName="fechaDesde" [matDatepicker]="fechaD">
+    <mat-datepicker-toggle matSuffix [for]="fechaD"></mat-datepicker-toggle>
+    <mat-datepicker #fechaD></mat-datepicker>
+  </mat-form-field>
+  <mat-form-field appearance="legacy">
+    <mat-label>Hasta</mat-label>
+    <input required  matInput placeholder="mm-dd-aaaa" name="fechaH" formControlName="fechaHasta" [matDatepicker]="fechaH">
+    <mat-datepicker-toggle matSuffix [for]="fechaH"></mat-datepicker-toggle>
+    <mat-datepicker #fechaH></mat-datepicker>
+  </mat-form-field>
+</mat-card>
+<mat-card >
+  <mat-card-title>Datos del Informe</mat-card-title>
+  <section class="example-section">
+    <mat-checkbox class="example-margin" [formControl]="sinFactura" (click)="ventasDirectas()">Solo Ventas Directas</mat-checkbox>
+    <mat-checkbox class="example-margin" [formControl]="conFactura" (click)="ventasConFactura()" >Solo Ventas con Factura</mat-checkbox>
+  </section>
+</mat-card>
+</form>
+<mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
+<ng-container matColumnDef="id" >
+  <mat-header-cell  *matHeaderCellDef mat-sort-header>Id</mat-header-cell>
+  <mat-cell *matCellDef="let element">  {{element.id}} </mat-cell>
+</ng-container>
+<ng-container matColumnDef="transproducto.fecha">
+  <mat-header-cell  *matHeaderCellDef mat-sort-header>Fecha</mat-header-cell>
+  <mat-cell *matCellDef="let element">  {{element.transproducto.fecha | date: 'dd/MM/yyyy'}} </mat-cell>
+</ng-container>
+<ng-container matColumnDef="transproducto.nrodoc">
+  <mat-header-cell  *matHeaderCellDef mat-sort-header>Nro documento</mat-header-cell>
+  <mat-cell *matCellDef="let element">  {{element.transproducto.nrodoc}} </mat-cell>
+</ng-container>
+<ng-container matColumnDef="salidas">
+  <mat-header-cell  *matHeaderCellDef mat-sort-header>Salidas</mat-header-cell>
+  <mat-cell *matCellDef="let element">  {{element.salidas}} </mat-cell>
+</ng-container>
+<ng-container matColumnDef="cantidad">
+  <mat-header-cell  *matHeaderCellDef mat-sort-header>Cantidad</mat-header-cell>
+  <mat-cell *matCellDef="let element">  {{element.cantidad}} </mat-cell>
+</ng-container>
+<ng-container matColumnDef="transproducto.oper">
+  <mat-header-cell  *matHeaderCellDef mat-sort-header>Operación</mat-header-cell>
+  <mat-cell *matCellDef="let element">  {{element.transproducto.oper}} </mat-cell>
+</ng-container>
+<ng-container matColumnDef="transproducto.factura">
+  <mat-header-cell  *matHeaderCellDef mat-sort-header>C/F</mat-header-cell>
+  <mat-cell *matCellDef="let element">  {{element.transproducto.factura | facturaPipe}} </mat-cell>
+</ng-container>
+<ng-container matColumnDef="transproducto.notaventa">
+  <mat-header-cell  *matHeaderCellDef mat-sort-header>Factura/Nota</mat-header-cell>
+  <mat-cell *matCellDef="let element">  {{element.transproducto.notaventa}} </mat-cell>
+</ng-container>
+<ng-container matColumnDef="costo">
+  <mat-header-cell  *matHeaderCellDef mat-sort-header>Costo</mat-header-cell>
+  <mat-cell *matCellDef="let element">  {{element.costo}} </mat-cell>
+</ng-container>
+<ng-container matColumnDef="monto">
+  <mat-header-cell  *matHeaderCellDef mat-sort-header>Costo Total</mat-header-cell>
+  <mat-cell *matCellDef="let element">  {{element.monto}} </mat-cell>
+</ng-container>
+<ng-container matColumnDef="producto.nombre">
+  <mat-header-cell  *matHeaderCellDef mat-sort-header>Producto</mat-header-cell>
+  <mat-cell *matCellDef="let element">  {{element.producto.nombre}} </mat-cell>
+</ng-container>
+<ng-container matColumnDef="producto.unidad.nombre">
+  <mat-header-cell  *matHeaderCellDef mat-sort-header>Unidad</mat-header-cell>
+  <mat-cell *matCellDef="let element">  {{element.producto.unidad.nombre}} </mat-cell>
+</ng-container>
+<ng-container matColumnDef="serial">
+  <mat-header-cell  *matHeaderCellDef mat-sort-header>Serial</mat-header-cell>
+  <mat-cell *matCellDef="let element">  {{element.serial}} </mat-cell>
+</ng-container>
+<ng-container matColumnDef="producto.serial">
+  <mat-header-cell  *matHeaderCellDef mat-sort-header>Serial</mat-header-cell>
+  <mat-cell *matCellDef="let element">  {{element.producto.serial}} </mat-cell>
+</ng-container>
+
+
+<mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+<mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+</mat-table>
+<div>
+  <mat-form-field>
+    <mat-label>Iva</mat-label>
+    <input matInput [formControl]="iva">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Cantidad</mat-label>
+    <input matInput [formControl]="cantidad">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Precio Total</mat-label>
+    <input matInput [formControl]="costoTotal">
+  </mat-form-field>
+
+
+</div>

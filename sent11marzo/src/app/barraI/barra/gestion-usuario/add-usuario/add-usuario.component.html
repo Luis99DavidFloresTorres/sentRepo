@@ -1,0 +1,24 @@
+<mat-card-content>
+  <form [formGroup]="formGroup" fxFlex fxLayout = "column" fxLayoutAlign="center center" >
+    <mat-form-field style="width: 50%;" class="example-full-width" appearance="fill">
+      <mat-label>Usuario</mat-label>
+      <input type="text"
+
+            placeholder="Usuario"
+            aria-label="usuario"
+            matInput
+            formControlName="usuario">
+    </mat-form-field>
+    <mat-form-field style="width: 50%;" class="example-full-width" appearance="fill">
+      <mat-label>Contraseña</mat-label>
+      <input type="text"
+
+            placeholder="Contraseña"
+            aria-label="Contrasena"
+            matInput
+            formControlName="contrasena">
+    </mat-form-field>
+    <button color="primary" mat-button (click)="guardar()" [disabled]="formGroup.invalid">Guardar</button>
+  </form>
+
+</mat-card-content>

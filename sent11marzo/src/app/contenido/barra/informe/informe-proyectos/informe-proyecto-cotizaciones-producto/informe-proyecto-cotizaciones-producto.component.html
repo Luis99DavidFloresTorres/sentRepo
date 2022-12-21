@@ -1,0 +1,92 @@
+<div fxLayoutAlign="center center" >
+  <button (click)="buscar()" mat-raised-button><mat-icon>search</mat-icon></button>
+  <button  mat-raised-button><mat-icon>print</mat-icon></button>
+  <button  mat-raised-button><mat-icon>close</mat-icon></button>
+</div>
+<form [formGroup]="documento" fxLayout="column">
+  <mat-form-field>
+    <mat-label>Nombre Proyecto</mat-label>
+    <input matInput formControlName="nombre">
+  </mat-form-field>
+  <div fxLayoutGap="30px">
+    <mat-form-field>
+      <mat-label>Nro Proyecto</mat-label>
+      <input matInput formControlName="nro">
+    </mat-form-field>
+    <mat-form-field appearance="legacy">
+      <mat-label>Fecha :</mat-label>
+      <input required  matInput placeholder="mm-dd-aaaa" name="fecha" formControlName="fecha" [matDatepicker]="fecha">
+      <mat-datepicker-toggle matSuffix [for]="fecha"></mat-datepicker-toggle>
+      <mat-datepicker #fecha></mat-datepicker>
+    </mat-form-field>
+  </div>
+
+  <mat-form-field>
+    <mat-label>Detalle</mat-label>
+    <input matInput formControlName="detalle">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Cliente</mat-label>
+    <input matInput formControlName="cliente">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Contacto</mat-label>
+    <input matInput formControlName="contacto">
+  </mat-form-field>
+  <div fxLayoutGap="30px">
+    <mat-form-field appearance="legacy">
+      <mat-label>Fecha Inicio:</mat-label>
+      <input required  matInput placeholder="mm-dd-aaaa" name="fechaD" formControlName="fechaInicio" [matDatepicker]="fechaD">
+      <mat-datepicker-toggle matSuffix [for]="fechaD"></mat-datepicker-toggle>
+      <mat-datepicker #fechaD></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field appearance="legacy">
+      <mat-label>Fecha Final:</mat-label>
+      <input required  matInput placeholder="mm-dd-aaaa" name="fechaH" formControlName="fechaFinal" [matDatepicker]="fechaH">
+      <mat-datepicker-toggle matSuffix [for]="fechaH"></mat-datepicker-toggle>
+      <mat-datepicker #fechaH></mat-datepicker>
+    </mat-form-field>
+  </div>
+</form>
+<mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
+  <ng-container matColumnDef="proyecto.fecha">
+    <mat-header-cell  *matHeaderCellDef mat-sort-header>Fecha</mat-header-cell>
+    <mat-cell *matCellDef="let element">  {{element.proyecto.fecha | date: 'dd/MM/yyyy'}} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="proyecto.prj">
+    <mat-header-cell  *matHeaderCellDef mat-sort-header>Nro documento</mat-header-cell>
+    <mat-cell *matCellDef="let element">  {{element.proyecto.prj}} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="salidas">
+    <mat-header-cell  *matHeaderCellDef mat-sort-header>Salidas</mat-header-cell>
+    <mat-cell *matCellDef="let element">  {{element.salidas}} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="cantidad">
+    <mat-header-cell  *matHeaderCellDef mat-sort-header>Cantidad</mat-header-cell>
+    <mat-cell *matCellDef="let element">  {{element.cantidad}} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="producto.tipo">
+    <mat-header-cell  *matHeaderCellDef mat-sort-header>Tipo</mat-header-cell>
+    <mat-cell *matCellDef="let element">  {{element.producto.tipo}} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="producto.nombre">
+    <mat-header-cell  *matHeaderCellDef mat-sort-header>Producto</mat-header-cell>
+    <mat-cell *matCellDef="let element">  {{element.producto.nombre}} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="producto.codigo">
+    <mat-header-cell  *matHeaderCellDef mat-sort-header>Codigo</mat-header-cell>
+    <mat-cell *matCellDef="let element">  {{element.producto.codigo}} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="producto.unidad.nombre">
+    <mat-header-cell  *matHeaderCellDef mat-sort-header>Unidad</mat-header-cell>
+    <mat-cell *matCellDef="let element">  {{element.producto.unidad.nombre}} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="producto.serial">
+    <mat-header-cell  *matHeaderCellDef mat-sort-header>Serial</mat-header-cell>
+    <mat-cell *matCellDef="let element">  {{element.producto.serial}} </mat-cell>
+  </ng-container>
+
+
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>

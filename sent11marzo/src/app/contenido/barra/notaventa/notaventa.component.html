@@ -1,0 +1,19 @@
+<div fxFlexLayout="column">
+  <div fxLayoutAlign="center center" fxLayoutGap="7px">
+    <button mat-raised-button [disabled]="nuevo" (click)="buttonNuevo()" color="primary">Nuevo</button>
+    <button mat-raised-button [disabled]="guardar" (click)="buttonGuardar()" color="accent">Guardar</button>
+    <button mat-raised-button [disabled]="cancelar" (click)="buttonCancelar()" color="warn">Cancelar</button>
+  </div>
+  <div>
+    <mat-horizontal-stepper>
+      <mat-step label="Registrar Nota de Venta">
+        <h1>Paso 1</h1>
+        <app-items-nota-venta (canastaVacia)="canastaVacia()" [boton]="botones" [recuperar]="recuperarItems" (mandarProductos)="productosObtener($event)"></app-items-nota-venta>
+      </mat-step>
+      <mat-step label="Encabezado Documento">
+        <h1>Paso 2</h1>
+        <app-encabezado-notaventa (numeroDestruirAlSalir)="guardarNroDocumento($event)"  (habilitarGuardar)="habilitarBotonGuardar($event)" [recuperar]="recuperarItems" [nroDocumento]="crearDestruir" [boton]="botones" (mandarTransaccionEncabezado)="encabezadoObtener($event)"></app-encabezado-notaventa>
+        </mat-step>
+    </mat-horizontal-stepper>
+  </div>
+</div>

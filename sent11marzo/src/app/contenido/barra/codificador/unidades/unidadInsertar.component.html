@@ -1,0 +1,25 @@
+<form  [formGroup]="formInsertar" >
+  <h1 mat-dialog-title>Agregar tipo gasto</h1>
+  <mat-dialog-content>
+    <section fxLayoutAlign="center">
+        <mat-card fxFlex="100%">
+          <div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px">
+            <mat-form-field style="width: 100%">
+              <mat-label>Ingrese el codigo de la unidad</mat-label>
+              <input matInput type="text" name="codigo" placeholder="CUNI-003" formControlName="codigo" required>
+              <mat-error>Debe ingresar el codigo de la unidad</mat-error>
+            </mat-form-field>
+            <mat-form-field style="width: 100%">
+              <mat-label>Ingrese la unidad</mat-label>
+              <input matInput type="text" name="unidad" placeholder="Caja" formControlName="unidad" required>
+              <mat-error>Debe ingresar la unidad</mat-error>
+            </mat-form-field>
+          </div>
+        </mat-card>
+    </section>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button mat-button [mat-dialog-close]="true" >Cerrar</button>
+    <button mat-button [disabled]="formInsertar.invalid" (click)="agregar()" type="submit" >Agregar</button>
+  </mat-dialog-actions>
+</form>

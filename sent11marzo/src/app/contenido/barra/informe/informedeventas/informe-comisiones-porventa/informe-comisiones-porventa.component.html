@@ -1,0 +1,81 @@
+<div fxLayoutAlign="center center">
+  <button mat-raised-button (click)="buscar()"><mat-icon>search</mat-icon></button>
+  <button mat-raised-button ><mat-icon>print</mat-icon></button>
+</div>
+<form fxLayout="row" [formGroup]="informeVentas" fxLayoutAlign="space-around">
+  <mat-card >
+    <mat-card-title>Periodos del Informe</mat-card-title>
+    <mat-form-field appearance="legacy">
+      <mat-label>Desde:</mat-label>
+      <input required  matInput placeholder="mm-dd-aaaa" name="fechaD" formControlName="fechaDesde" [matDatepicker]="fechaD">
+      <mat-datepicker-toggle matSuffix [for]="fechaD"></mat-datepicker-toggle>
+      <mat-datepicker #fechaD></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field appearance="legacy">
+      <mat-label>Hasta:</mat-label>
+      <input required  matInput placeholder="mm-dd-aaaa" name="fechaH" formControlName="fechaHasta" [matDatepicker]="fechaH">
+      <mat-datepicker-toggle matSuffix [for]="fechaH"></mat-datepicker-toggle>
+      <mat-datepicker #fechaH></mat-datepicker>
+    </mat-form-field>
+  </mat-card>
+  <mat-card fxLayout="column">
+    <mat-card-title>Datos del Informe</mat-card-title>
+    <mat-form-field >
+      <mat-label >Responsable</mat-label>
+      <mat-select formControlName="responsable">
+        <mat-option  (click)="selectClick(i)" *ngFor="let responsable of responsables; let i = index" [value]="responsable">
+          {{responsable}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Cargo</mat-label>
+      <input matInput formControlName="cargo">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Comisión</mat-label>
+      <input matInput formControlName="comision">
+    </mat-form-field>
+  </mat-card>
+</form>
+<mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
+  <ng-container matColumnDef="id" >
+    <mat-header-cell  *matHeaderCellDef mat-sort-header>Id</mat-header-cell>
+    <mat-cell *matCellDef="let element">  {{element.id}} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="notaventa.fecha">
+    <mat-header-cell  *matHeaderCellDef mat-sort-header>Fecha</mat-header-cell>
+    <mat-cell *matCellDef="let element">  {{element.notaventa.fecha | date:"dd/MM/YYYY"}} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="notaventa.nrodoc">
+    <mat-header-cell  *matHeaderCellDef mat-sort-header>Nro documento</mat-header-cell>
+    <mat-cell *matCellDef="let element">  {{element.notaventa.nrodoc}} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="costoTotal">
+    <mat-header-cell  *matHeaderCellDef mat-sort-header>Costo Total</mat-header-cell>
+    <mat-cell *matCellDef="let element">  {{element.costoTotal}} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="notaventa.useract">
+    <mat-header-cell  *matHeaderCellDef mat-sort-header>Usuario</mat-header-cell>
+    <mat-cell *matCellDef="let element">  {{element.notaventa.useract}} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="precioTotal">
+    <mat-header-cell  *matHeaderCellDef mat-sort-header>Precio Total</mat-header-cell>
+    <mat-cell *matCellDef="let element">  {{element.precioTotal}} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="notaventa.cliente.nombre">
+    <mat-header-cell  *matHeaderCellDef mat-sort-header>Cliente</mat-header-cell>
+    <mat-cell *matCellDef="let element">  {{element.notaventa.cliente.nombre}} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="notaventa.proyecto.nombre">
+    <mat-header-cell  *matHeaderCellDef mat-sort-header>Operación</mat-header-cell>
+    <mat-cell *matCellDef="let element">  {{element.notaventa.proyecto.nombre}} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="totalComision">
+    <mat-header-cell  *matHeaderCellDef mat-sort-header>Comision</mat-header-cell>
+    <mat-cell *matCellDef="let element">  {{element.totalComision}} </mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+</mat-table>

@@ -1,0 +1,24 @@
+<button mat-fab color="warn" id="agregar" (click)="agregar()">
+  <mat-icon>add</mat-icon>
+</button>
+<mat-table [dataSource]="dataSource"  class="mat-elevation-z8" >
+  <ng-container matColumnDef="cuenta" >
+    <mat-header-cell  *matHeaderCellDef >Cuenta</mat-header-cell>
+    <mat-cell *matCellDef="let element">  {{element.cuenta}} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="contrasena">
+    <mat-header-cell  *matHeaderCellDef>Contraseña</mat-header-cell>
+    <mat-cell *matCellDef="let element">  {{element.contrasena}} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="nombreNivel">
+    <mat-header-cell  *matHeaderCellDef>Nivel Usuario</mat-header-cell>
+    <mat-cell *matCellDef="let element">  {{(element.nivelUsuario==null) ? "No tiene nivel" : element.nivelUsuario.nombre}} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="operacion" >
+    <mat-header-cell  *matHeaderCellDef >Operaciones</mat-header-cell>
+    <mat-cell *matCellDef="let element">  <button mat-button color="primary" (click) = "agregarFuncion(element.id)"><mat-icon>person_add</mat-icon></button> <button mat-button color="primary" (click) = "eliminar(element.id)"><mat-icon>delete</mat-icon> </button> </mat-cell>
+
+  </ng-container>
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+</mat-table>

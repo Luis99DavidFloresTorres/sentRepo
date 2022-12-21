@@ -1,0 +1,102 @@
+<!-- <ngx-barcode [bc-value]='ab' [bc-display-value]="true"></ngx-barcode> -->
+
+<div>
+  <div>
+    <div fxLayoutGap="3%">
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>Producto</mat-label>
+      <input type="text"
+
+             placeholder="Nombre del Producto"
+             aria-label="Productos"
+             matInput
+             [formControl]="myControl"
+             required
+             [matAutocomplete]="autoProducto">
+      <mat-autocomplete #autoProducto="matAutocomplete">
+        <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+          {{option}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+    </div>
+     <div fxFlex fxLayout="center center">
+      <button [disabled]="myControl.invalid" mat-button color="primary" (click)="agregar()"><mat-icon>shopping_cart</mat-icon></button>
+    </div>
+  </div>
+  <div>
+    <mat-table [dataSource]="dataSource" *ngIf="tablaDatos.length!=0" class="mat-elevation-z8" matSort>
+      <ng-container matColumnDef="id" >
+        <mat-header-cell  *matHeaderCellDef mat-sort-header>Id</mat-header-cell>
+        <mat-cell *matCellDef="let element">  {{element.id}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="detalle">
+        <mat-header-cell  *matHeaderCellDef mat-sort-header>Detalle</mat-header-cell>
+        <mat-cell *matCellDef="let element">  {{element.detalle}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="producto.unidad.nombre">
+        <mat-header-cell  *matHeaderCellDef mat-sort-header>Unidad</mat-header-cell>
+        <mat-cell *matCellDef="let element">  {{element.producto.unidad.nombre}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="producto.nombre">
+        <mat-header-cell  *matHeaderCellDef mat-sort-header>Nombre</mat-header-cell>
+        <mat-cell *matCellDef="let element">  {{element.producto.nombre}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="producto.codigo">
+        <mat-header-cell  *matHeaderCellDef mat-sort-header>Codigo</mat-header-cell>
+        <mat-cell *matCellDef="let element">  {{element.producto.codigo}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="monto">
+        <mat-header-cell  *matHeaderCellDef mat-sort-header>Precio Total</mat-header-cell>
+        <mat-cell *matCellDef="let element">  {{element.monto}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="cantidad">
+        <mat-header-cell  *matHeaderCellDef mat-sort-header>Cantidad</mat-header-cell>
+        <mat-cell *matCellDef="let element"><input  #input2 (keyup)="input(element.producto.id, input2.value)" type="number" matInput [value]="cantidad"></mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="eliminar">
+        <mat-header-cell  *matHeaderCellDef mat-sort-header>Eliminar</mat-header-cell>
+        <mat-cell *matCellDef="let element">  <button (click)="eliminarItem(element.producto.id)" color="warn" mat-icon-button><mat-icon>delete</mat-icon></button> </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="precio">
+        <mat-header-cell  *matHeaderCellDef mat-sort-header>Precio U</mat-header-cell>
+        <mat-cell *matCellDef="let element">  <input matInput #input3 (keyup)="precioinput(element.producto.id, input3.value)" value="{{element.precio}}"> </mat-cell>
+      </ng-container>
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+    <div *ngIf="tablaDatos.length!=0">
+      <div fxFlex fxLayoutAlign="center center" fxLayoutGap="7px">
+        <mat-form-field>
+          <h3>Costo total</h3>
+          <input matInput  [formControl]="costoTotal">
+        </mat-form-field>
+        <mat-form-field>
+          <h3>Precio</h3>
+          <input matInput  [formControl]="precio">
+        </mat-form-field>
+      </div>
+      <div  fxLayoutAlign="end">
+        <mat-paginator [length]="10" [pageSizeOptions]="[10,100,1000]">
+        </mat-paginator>
+      </div>
+    </div>
+ <!-- <div fxLayoutGap = "-70px">
+    <div fxFlex  fxLayout="column">
+      <mat-label>Recuperar Nota Entrada</mat-label>
+       <button [disabled]="nuevo" mat-icon-button color="primary"><mat-icon>note</mat-icon></button>
+    </div>
+    <div fxFlex  fxLayout="column">
+      <mat-label>Recuperar Nota Salida</mat-label>
+      <button [disabled]="nuevo" mat-icon-button color="warn"><mat-icon>sticky_note_2</mat-icon></button>
+    </div>
+   <div fxFlex fxLayout="column">
+    <mat-label>Recuperar Cotizacion </mat-label>
+    <button [disabled]="nuevo" mat-icon-button><mat-icon>speaker_notes</mat-icon></button>
+   </div>
+  <div fxFlex  fxLayout="column">
+    <mat-label>Recuperar Nota Venta</mat-label>
+    <button [disabled]="nuevo" mat-icon-button color="accent"><mat-icon>note_add</mat-icon></button>
+  </div>
+  </div>-->
+</div>

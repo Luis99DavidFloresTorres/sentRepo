@@ -1,0 +1,71 @@
+<div fxLayoutAlign="center center" fxLayoutGap="10px">
+  <button mat-raised-button><mat-icon>add</mat-icon></button>
+  <button mat-raised-button><mat-icon>save</mat-icon></button>
+  <button mat-raised-button><mat-icon>add</mat-icon></button>
+  <button mat-raised-button (click)="buscarSolicitud()"><mat-icon>search</mat-icon></button>
+  <button mat-raised-button><mat-icon>print</mat-icon></button>
+  <button mat-raised-button>Cerrar</button>
+</div>
+<div>
+  <form [formGroup]="solicitudPresupuesto" fxLayout="column">
+    <mat-card fxLayoutGap="50px">
+      <mat-card-title>Documento</mat-card-title>
+      <mat-form-field style="width: 300px;">
+        <mat-label>Nro doc</mat-label>
+        <input matInput formControlName="nrodoc">
+      </mat-form-field>
+      <mat-form-field appearance="legacy">
+        <mat-label>Fecha</mat-label>
+        <input required  matInput placeholder="dd-mm-aaaa" name="fecha" formControlName="fecha" [matDatepicker]="fechaF">
+        <mat-datepicker-toggle matSuffix [for]="fechaF"></mat-datepicker-toggle>
+        <mat-datepicker #fechaF></mat-datepicker>
+      </mat-form-field>
+      <mat-form-field style="width: 200;">
+        <mat-label>Estado</mat-label>
+        <input matInput formControlName="estado" >
+      </mat-form-field>
+    </mat-card>
+    <mat-card fxLayout = "column">
+      <mat-card-title>Proyecto</mat-card-title>
+      <mat-form-field style="width: 500px;" >
+        <mat-label>Operacion/Proyecto</mat-label>
+        <input matInput formControlName="operacionproyecto">
+      </mat-form-field>
+      <mat-form-field style="width: 500px;">
+        <mat-label>Codigo</mat-label>
+        <input matInput formControlName="codigo">
+      </mat-form-field>
+      <mat-form-field style="width: 500px;">
+        <mat-label>Cliente</mat-label>
+        <input matInput formControlName="cliente">
+      </mat-form-field>
+      <mat-form-field style="width: 500px;">
+        <mat-label>Detalle</mat-label>
+        <input matInput formControlName="detalle">
+      </mat-form-field>
+    </mat-card>
+    <mat-card fxLayout = "column">
+      <mat-card-title>Recursos</mat-card-title>
+      <mat-form-field style="width: 300px;">
+        <mat-label>Monto Bs</mat-label>
+        <input matInput formControlName="montoBs">
+      </mat-form-field>
+      <mat-form-field style="width: 300px;">
+        <mat-label>Monto Us</mat-label>
+        <input matInput formControlName="montoUs">
+      </mat-form-field>
+      <mat-form-field style="width: 500px;">
+        <mat-label>Concepto</mat-label>
+        <input matInput formControlName="concepto">
+      </mat-form-field>
+      <mat-form-field style="width: 300px;">
+        <mat-label>Responsable</mat-label>
+        <input matInput formControlName="responsable">
+      </mat-form-field>
+    </mat-card>
+
+  </form>
+  <div>
+      <mat-label>Actualizado por: {{nombreUsuario}} en: {{fechaact}}</mat-label>
+  </div>
+</div>

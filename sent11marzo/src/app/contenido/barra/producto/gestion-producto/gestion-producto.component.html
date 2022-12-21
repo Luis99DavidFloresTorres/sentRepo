@@ -1,0 +1,106 @@
+<div  style=" background: inherit">
+<div fxLayoutAlign= "center center" class="create-account-form">
+  <mat-form-field  color= "primary" fxFlex="30%">
+    <input matInput id="input" placeholder="buscador" (keyup)="hacerFiltro($any($event.target).value)">
+    <mat-icon fxFlex color="primary">search</mat-icon>
+
+  </mat-form-field>
+  <!--<form [formGroup]="formCheckboxGroup">
+    <mat-checkbox formControlName="check1" color="primary" (click)="tablaPrecio()" style="color: black;">Precio</mat-checkbox>
+    <mat-checkbox formControlName="check2" color="primary" (click)="tablaProducto()" style="color: black;">Producto</mat-checkbox>
+    <mat-checkbox formControlName="check3" color="primary" (click)="tablaProductoValorado()" style="color: black;">Producto Valorado</mat-checkbox>
+  </form>-->
+  <button mat-fab color="warn" id="agregar" (click)="abrirDialog()">
+    <mat-icon>add</mat-icon>
+  </button>
+</div>
+
+<mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
+  <ng-container matColumnDef="id" >
+    <mat-header-cell  *matHeaderCellDef mat-sort-header>Id</mat-header-cell>
+    <mat-cell *matCellDef="let element">  {{element.id}} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="invinicial">
+    <mat-header-cell  *matHeaderCellDef mat-sort-header>Inv inicial</mat-header-cell>
+    <mat-cell *matCellDef="let element">  {{element.invinicial}} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="detalle">
+    <mat-header-cell  *matHeaderCellDef mat-sort-header>Detalle</mat-header-cell>
+    <mat-cell *matCellDef="let element">  {{element.detalle}} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="saldo">
+    <mat-header-cell  *matHeaderCellDef mat-sort-header>Saldo</mat-header-cell>
+    <mat-cell *matCellDef="let element">  {{element.saldo}} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="unidadS">
+    <mat-header-cell  *matHeaderCellDef mat-sort-header>Unidad</mat-header-cell>
+    <mat-cell *matCellDef="let element">  {{element.unidadS}} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="nombre">
+    <mat-header-cell  *matHeaderCellDef mat-sort-header>Nombre</mat-header-cell>
+    <mat-cell *matCellDef="let element">  {{element.nombre}} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="useract">
+    <mat-header-cell  *matHeaderCellDef mat-sort-header>Usuario activo</mat-header-cell>
+    <mat-cell *matCellDef="let element">  {{element.useract}} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="desctoa">
+    <mat-header-cell  *matHeaderCellDef mat-sort-header>Desctoa</mat-header-cell>
+    <mat-cell *matCellDef="let element">  {{element.desctoa}} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="desctob">
+    <mat-header-cell  *matHeaderCellDef mat-sort-header>Desctob</mat-header-cell>
+    <mat-cell *matCellDef="let element">  {{element.desctob}} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="desctoc">
+    <mat-header-cell  *matHeaderCellDef mat-sort-header>Desctoc</mat-header-cell>
+    <mat-cell *matCellDef="let element">  {{element.desctoc}} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="codigo">
+    <mat-header-cell  *matHeaderCellDef mat-sort-header>Codigo</mat-header-cell>
+    <mat-cell *matCellDef="let element">{{element.codigo}} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="costoTotal">
+    <mat-header-cell  *matHeaderCellDef mat-sort-header>Costo Total</mat-header-cell>
+    <mat-cell *matCellDef="let element">  {{element.costoTotal}} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="imagen">
+    <mat-header-cell  *matHeaderCellDef mat-sort-header>Imagen</mat-header-cell>
+    <mat-cell *matCellDef="let element"> <img style="width:100; height: 100px;" src="{{element.urlPortada}}" alt="Producto Portada"> </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="costo">
+    <mat-header-cell  *matHeaderCellDef mat-sort-header>Costo</mat-header-cell>
+    <mat-cell *matCellDef="let element">  {{element.costo}} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="ingresos">
+    <mat-header-cell  *matHeaderCellDef mat-sort-header>Ingreso</mat-header-cell>
+    <mat-cell *matCellDef="let element">  {{element.ingresos}} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="marca">
+    <mat-header-cell  *matHeaderCellDef mat-sort-header>Marca</mat-header-cell>
+    <mat-cell *matCellDef="let element">  {{element.marca}} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="salidas">
+    <mat-header-cell  *matHeaderCellDef mat-sort-header>Salida</mat-header-cell>
+    <mat-cell *matCellDef="let element">  {{element.salidas}} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="modelo">
+    <mat-header-cell  *matHeaderCellDef mat-sort-header>Modelo</mat-header-cell>
+    <mat-cell *matCellDef="let element">  {{element.modelo}} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="enlace">
+    <mat-header-cell  *matHeaderCellDef mat-sort-header>Enlaces
+      <img style="width: 20px; height: 20px; margin-left: 30px;" src="../../../assets/pezcristiano2.jpg" ></mat-header-cell>
+    <mat-cell *matCellDef="let element" fxLayoutGap="10px">
+      <button mat-fab color="primary" (click) = "obtenerFotoConsulta(element.id)"><mat-icon>edit</mat-icon></button>
+     <!-- <button mat-raised-button  color="warn" (click) = "eliminar(element.id)"><mat-icon>delete</mat-icon></button>-->
+    </mat-cell>
+  </ng-container>
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+</mat-table>
+<mat-paginator [length]="10" [pageSizeOptions]="[10,100,1000]">
+</mat-paginator>
+
+
+</div>

@@ -1,0 +1,5 @@
+mat-table {
+  overflow-y: scroll;
+  max-height:50vh;
+  max-width: 70vh;
+}

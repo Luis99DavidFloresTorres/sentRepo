@@ -1,0 +1,25 @@
+<button mat-fab color="warn" id="agregar" (click)="abrirDialog()">
+  <mat-icon>add</mat-icon>
+</button>
+    <mat-table *ngIf="valor"  [dataSource]="dataSource" class="mat-elevation-z8" matSort>
+      <ng-container matColumnDef="nombre" >
+        <mat-header-cell  *matHeaderCellDef mat-sort-header>Nombre</mat-header-cell>
+        <mat-cell *matCellDef="let element">  {{element.nombre}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="codigo" >
+        <mat-header-cell  *matHeaderCellDef mat-sort-header>Codigo</mat-header-cell>
+        <mat-cell *matCellDef="let element">  {{element.codigo}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="enlace">
+        <mat-header-cell  *matHeaderCellDef mat-sort-header>Enlaces
+          <img style="width: 20px; height: 20px; margin-left: 30px;" src="../../../assets/pezcristiano2.jpg" ></mat-header-cell>
+        <mat-cell *matCellDef="let element" fxLayoutGap="10px">
+          <button mat-icon-button color="primary" (click) = "editar(element.id)"><mat-icon>edit</mat-icon></button>
+          <button mat-icon-button color="warn" (click) = "eliminar(element.id)"><mat-icon>delete</mat-icon></button>
+         <!-- <button mat-raised-button  color="warn" (click) = "eliminar(element.id)"><mat-icon>delete</mat-icon></button>-->
+        </mat-cell>
+      </ng-container>
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+

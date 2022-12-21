@@ -1,0 +1,45 @@
+<div fxLayoutAlign= "center center" class="create-account-form">
+
+  <mat-form-field  color= "primary" fxFlex="30%">
+    <input matInput id="input" placeholder="buscador" (keyup)="hacerFiltro($any($event.target).value)">
+    <mat-icon fxFlex color="primary">search</mat-icon>
+  </mat-form-field>
+  <form [formGroup]="formCheckboxGroup">
+    <!--<mat-checkbox formControlName="check1" color="primary" (click)="productoValoradoContable()" style="color: black;">Producto Valorado</mat-checkbox> &&-->
+  </form>
+</div>
+<mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
+  <ng-container matColumnDef="id">
+    <mat-header-cell  *matHeaderCellDef mat-sort-header>Id</mat-header-cell>
+    <mat-cell *matCellDef="let element">  {{element.id}} </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="costo">
+    <mat-header-cell  *matHeaderCellDef mat-sort-header>Costo</mat-header-cell>
+    <mat-cell *matCellDef="let element">  {{element.costo}} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="enlace">
+    <mat-header-cell  *matHeaderCellDef mat-sort-header>Enlaces</mat-header-cell>
+    <mat-cell *matCellDef="let element">
+      <button mat-button (click) = "obtenerDatos(element.id)">mostrar</button>
+      <button mat-button (click) = "eliminar(element._id)">eliminar</button>
+    </mat-cell>
+  </ng-container>
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+</mat-table>
+<mat-paginator [length]="10" [pageSizeOptions]="[10,100,1000]">
+</mat-paginator>
+<div>
+  <button mat-fab color="warn" id="agregar" (click)="abrirDialog()">
+    <mat-icon>add</mat-icon>
+  </button>
+  <div fxLayoutAlign="center center">
+    <button mat-fab color="primary"  (click)="atras()">
+      <mat-icon>arrow_back_ios</mat-icon>
+    </button>
+    <button mat-fab color="primary"  (click)="adelante()">
+      <mat-icon>arrow_forward_ios</mat-icon>
+    </button>
+  </div>
+</div>

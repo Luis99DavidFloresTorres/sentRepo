@@ -1,0 +1,87 @@
+<div >
+  <div fxLayoutAlign="center center" fxLayoutGap="10%">
+    <button mat-raised-button style="background-color:#908E8D;">Nuevo<mat-icon>add</mat-icon></button>
+    <button mat-raised-button style="background-color:#908E8D;">Guardar<mat-icon>save</mat-icon></button>
+    <button mat-raised-button style="background-color:#908E8D;">Eliminar<mat-icon>delete</mat-icon></button>
+    <button mat-raised-button style="background-color:#908E8D;">Cerrar<mat-icon>close</mat-icon></button>
+  </div>
+  <div >
+
+    <form  fxLayoutAlign="center center" [formGroup]="formGroup" fxLayout="column" >
+      <mat-form-field style="width:350px;" appearance="outline">
+        <mat-label>Código</mat-label>
+        <input matInput formControlName="codigoF" placeholder="CTE-08106">
+      </mat-form-field>
+      <mat-form-field style="width:350px;" appearance="outline">
+        <mat-label>Nombre Herramienta</mat-label>
+        <input matInput formControlName="nombreF" placeholder="A M COMERCIALIZADORES">
+      </mat-form-field>
+     <mat-form-field style="width:350px;" class="select1" appearance="standard">
+        <mat-label>TIPO</mat-label>
+        <mat-select formControlName="tipoF" (selectionChange)="tipoS($any($event).value)" >
+        <mat-option>--</mat-option>
+        <mat-option *ngFor="let tipo of tipos" [value]="tipo">
+          {{tipo}}
+        </mat-option>
+        </mat-select>
+        <mat-hint>Tipos</mat-hint>
+      </mat-form-field>
+      <mat-form-field style="width:350px;" class="select1" appearance="standard">
+        <mat-label>UNIDAD</mat-label>
+        <mat-select formControlName="unidadF" (selectionChange)="unidadS($any($event).value)" >
+        <mat-option>--</mat-option>
+        <mat-option *ngFor="let unidad of unidades" [value]="unidad">
+          {{unidad}}
+        </mat-option>
+        </mat-select>
+        <mat-hint>Unidades</mat-hint>
+      </mat-form-field>
+      <mat-form-field style="width:350px;" class="select1" appearance="standard">
+        <mat-label>ESTADO</mat-label>
+        <mat-select formControlName="estadoF" (selectionChange)="estadoS($any($event).value)" >
+        <mat-option>--</mat-option>
+        <mat-option *ngFor="let estado of estados" [value]="estado">
+          {{estado}}
+        </mat-option>
+        </mat-select>
+        <mat-hint>Estados</mat-hint>
+      </mat-form-field>
+      <mat-form-field appearance="legacy">
+        <mat-label>Ingrese fecha de ingreso</mat-label>
+        <input required  matInput placeholder="dd-mm-aaaa" name="fecha" formControlName="fechaIngresoF" [matDatepicker]="fechaF">
+        <mat-datepicker-toggle matSuffix [for]="fechaF"></mat-datepicker-toggle>
+        <mat-datepicker #fechaF></mat-datepicker>
+      </mat-form-field>
+      <mat-form-field style="width:350px;" class="select1" appearance="standard">
+        <mat-label>Situacion</mat-label>
+        <mat-select formControlName="situacionF" (selectionChange)="situacionS($any($event).value)" >
+        <mat-option>--</mat-option>
+        <mat-option *ngFor="let situacion of situaciones" [value]="situacion">
+          {{situacion}}
+        </mat-option>
+        </mat-select>
+        <mat-hint>Estados</mat-hint>
+      </mat-form-field>
+      <mat-form-field style="width:350px;" appearance="outline">
+        <mat-label>Precio</mat-label>
+        <input matInput formControlName="precioF">
+      </mat-form-field>
+      <mat-form-field style="width:350px;"  appearance="outline">
+        <mat-label>Detalle</mat-label>
+        <textarea matInput formControlName="detalleF" cdkTextareaAutosize cdkAutosizeMinRows="4"
+        cdkAutosizeMaxRows="12"></textarea>
+      </mat-form-field>
+    </form>
+    <div fxLayoutAlign="center center">
+      <mat-label>Actualizado por: {{useract}} en: {{fechaact}}</mat-label>
+
+  </div>
+  </div>
+  <div fxLayoutAlign="center center" fxLayoutGap="10%">
+    <button mat-raised-button style="background-color:#908E8D;" (click)="primer()">Primer<mat-icon>arrow_back_ios</mat-icon></button>
+    <button mat-raised-button style="background-color:#908E8D;" (click)="anterior()">Anterior<mat-icon>fast_rewind</mat-icon></button>
+    <button mat-raised-button style="background-color:#908E8D;" (click)="buscarHerramienta()">Buscar<mat-icon>search</mat-icon></button>
+    <button mat-raised-button style="background-color:#908E8D;" (click)="posterior()">Siguiente<mat-icon>fast_forward</mat-icon></button>
+    <button mat-raised-button style="background-color:#908E8D;" (click)="ultimo()">Ultimo<mat-icon>arrow_forward_ios</mat-icon></button>
+  </div>
+</div>

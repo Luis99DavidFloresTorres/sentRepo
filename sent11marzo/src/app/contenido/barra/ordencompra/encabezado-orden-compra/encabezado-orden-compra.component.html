@@ -1,0 +1,75 @@
+<form fxFlex fxLayout= "column" [formGroup]="formGroup">
+  <div fxLayoutGap = "10%">
+    <mat-form-field>
+      <mat-label>Nro Doc IP</mat-label>
+    <input matInput formControlName="nroDoc">
+    </mat-form-field>
+    <mat-form-field appearance="legacy">
+      <mat-label>Ingrese fecha deseada</mat-label>
+      <input required  matInput placeholder="mm-dd-aaaa" name="fecha" formControlName="fechaTransaccion" [matDatepicker]="fechaF">
+      <mat-datepicker-toggle matSuffix [for]="fechaF"></mat-datepicker-toggle>
+      <mat-datepicker #fechaF></mat-datepicker>
+    </mat-form-field>
+
+  </div>
+  <mat-form-field style="width: 10%;">
+    <mat-label >Origen de Compra</mat-label>
+    <mat-select formControlName="compraOperacion">
+      <mat-option *ngFor="let compra of operacionCompra" [value]="compra">
+        {{compra}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field style="width: 10%;">
+    <mat-label >Transporte</mat-label>
+    <mat-select formControlName="transporte">
+      <mat-option *ngFor="let transport of transporte" [value]="transport">
+        {{transport}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field style="width: 10%;">
+    <mat-label >Ciudad</mat-label>
+    <mat-select formControlName="ciudad">
+      <mat-option *ngFor="let city of ciudad" [value]="city">
+        {{city}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <div style="width: 30%;" class="example-full-width">
+    <div style="width: 30%;" fxFlex>
+      <mat-form-field>
+        <input type="text"
+              placeholder="Nombre del Proveedor"
+              aria-label="Proveedor"
+              matInput
+              formControlName="proveedor"
+              required
+
+              [matAutocomplete]="auto">
+        <mat-autocomplete #auto="matAutocomplete">
+          <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+            {{option}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+    </div>
+    <div >
+      <button mat-icon-button (click)="agregarProveedor()" color="accent"><mat-icon>add</mat-icon></button>
+      <button mat-icon-button (click)="guardarProveedor()" color="primary"><mat-icon>save</mat-icon></button>
+      <button mat-icon-button (click)="cancelarProveedor()" color="warn"><mat-icon>cancel</mat-icon></button>
+    </div>
+  </div>
+  <mat-form-field style="width: 30%;">
+    <mat-label>Datos Facturacion</mat-label>
+    <input formControlName="datosFacturacion" matInput>
+  </mat-form-field>
+  <mat-form-field style="width: 30%;">
+    <mat-label>NIT Facturacion</mat-label>
+    <input formControlName="nit" matInput type="number">
+  </mat-form-field>
+  <mat-form-field style="width: 50%;">
+    <mat-label>Observaciones</mat-label>
+    <input matInput formControlName="observacion">
+  </mat-form-field>
+</form>

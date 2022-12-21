@@ -1,0 +1,156 @@
+<!-- <ngx-barcode [bc-value]='ab' [bc-display-value]="true"></ngx-barcode> -->
+
+<div>
+  <div >
+    <div  fxLayoutGap="3%">
+    <mat-form-field style="width: 30%;" class="example-full-width" appearance="fill">
+      <mat-label>Producto</mat-label>
+      <input type="text"
+             placeholder="Nombre del Producto"
+             aria-label="Productos"
+             matInput
+             [formControl]="myControl"
+             required
+             [matAutocomplete]="autoProducto">
+      <mat-autocomplete #autoProducto="matAutocomplete">
+        <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+          {{option}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+    <mat-form-field style="width: 30%;" class="example-full-width" appearance="fill">
+      <mat-label>Serial</mat-label>
+      <input type="text"
+
+             placeholder="Serial del Producto"
+             aria-label="Serial"
+             matInput
+             [formControl]="serialControl"
+             required
+             [matAutocomplete]="autoSerial"><!--ese autoserial es la variable de abajo-->
+      <mat-autocomplete #autoSerial="matAutocomplete">
+        <mat-option *ngFor="let optionS of serialOptions | async" [value]="optionS">
+          {{optionS}}
+        </mat-option>
+      </mat-autocomplete>
+
+    </mat-form-field>
+    </div>
+     <div >
+      <button [disabled]="myControl.invalid" mat-button color="primary" (click)="agregar()"><mat-icon>shopping_cart</mat-icon></button>
+    </div>
+  </div>
+  <div>
+    <mat-table [dataSource]="dataSource" *ngIf="tablaDatos.length!=0" class="mat-elevation-z8" matSort>
+      <ng-container matColumnDef="id" >
+        <mat-header-cell  *matHeaderCellDef mat-sort-header>Id</mat-header-cell>
+        <mat-cell *matCellDef="let element">  {{element.id}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="invinicial">
+        <mat-header-cell  *matHeaderCellDef mat-sort-header>Inv inicial</mat-header-cell>
+        <mat-cell *matCellDef="let element">  {{element.invinicial}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="detalle">
+        <mat-header-cell  *matHeaderCellDef mat-sort-header>Detalle</mat-header-cell>
+        <mat-cell *matCellDef="let element">  {{element.detalle}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="saldo">
+        <mat-header-cell  *matHeaderCellDef mat-sort-header>Saldo</mat-header-cell>
+        <mat-cell *matCellDef="let element">  {{element.saldo}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="producto.unidad.nombre">
+        <mat-header-cell  *matHeaderCellDef mat-sort-header>Unidad</mat-header-cell>
+        <mat-cell *matCellDef="let element">  {{element.producto.unidad.nombre}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="producto.nombre">
+        <mat-header-cell  *matHeaderCellDef mat-sort-header>Nombre</mat-header-cell>
+        <mat-cell *matCellDef="let element">  {{element.producto.nombre}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="producto.codigo">
+        <mat-header-cell  *matHeaderCellDef mat-sort-header>Codigo</mat-header-cell>
+        <mat-cell *matCellDef="let element">  {{element.producto.codigo}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="desctoa">
+        <mat-header-cell  *matHeaderCellDef mat-sort-header>Desctoa</mat-header-cell>
+        <mat-cell *matCellDef="let element">  {{element.desctoa}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="costoTotal">
+        <mat-header-cell  *matHeaderCellDef mat-sort-header>Costo Total</mat-header-cell>
+        <mat-cell *matCellDef="let element">  {{element.costoTotal}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="cantidad">
+        <mat-header-cell  *matHeaderCellDef mat-sort-header>Cantidad</mat-header-cell>
+        <mat-cell *matCellDef="let element"><input  #input2 (keyup)="input(element.producto.id, input2.value)" type="number" matInput value="{{element.cantidad}}"></mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="costo">
+        <mat-header-cell  *matHeaderCellDef mat-sort-header>Costo Unidad</mat-header-cell>
+        <mat-cell *matCellDef="let element">  <input matInput #input3 (keyup)="costoinput(element.producto.id, input3.value)" type="number" value="{{element.costo}}"> </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="ingresos">
+        <mat-header-cell  *matHeaderCellDef mat-sort-header>Ingreso</mat-header-cell>
+        <mat-cell *matCellDef="let element">  {{element.ingresos}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="eliminar">
+        <mat-header-cell  *matHeaderCellDef mat-sort-header>Eliminar</mat-header-cell>
+        <mat-cell *matCellDef="let element">  <button (click)="eliminarItem(element.producto.id)" color="warn" mat-icon-button><mat-icon>delete</mat-icon></button> </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="marca">
+        <mat-header-cell  *matHeaderCellDef mat-sort-header>Marca</mat-header-cell>
+        <mat-cell *matCellDef="let element">  {{element.marca}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="modelo">
+        <mat-header-cell  *matHeaderCellDef mat-sort-header>Modelo</mat-header-cell>
+        <mat-cell *matCellDef="let element">  {{element.modelo}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="monto">
+        <mat-header-cell  *matHeaderCellDef mat-sort-header>Costo Total</mat-header-cell>
+        <mat-cell *matCellDef="let element">  {{element.monto}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="producto.serial">
+        <mat-header-cell  *matHeaderCellDef mat-sort-header>Serial</mat-header-cell>
+        <mat-cell *matCellDef="let element">  {{element.producto.serial}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="serial">
+        <mat-header-cell  *matHeaderCellDef mat-sort-header>Serial</mat-header-cell>
+        <mat-cell *matCellDef="let element;  let entry" [ngClass]="{higtligth:entry.nombre==[valorColor]}"> <input placeholder="Escribir serial" matInput #element.id [value]="serial"></mat-cell>
+      </ng-container>
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+  </div>
+  <div *ngIf="tablaDatos.length!=0">
+    <div fxFlex fxLayoutAlign="center center" fxLayoutGap="7px">
+      <mat-form-field>
+        <h3>Costo total</h3>
+        <input matInput  [formControl]="costoTotal">
+      </mat-form-field>
+      <mat-form-field>
+        <h3>Precio</h3>
+        <input matInput  [formControl]="costo">
+      </mat-form-field>
+    </div>
+    <div  fxLayoutAlign="end">
+      <mat-paginator [length]="10" [pageSizeOptions]="[10,100,1000]">
+      </mat-paginator>
+    </div>
+
+  </div>
+  <div fxLayoutGap = "-70px">
+    <div fxFlex  fxLayout="column">
+      <mat-label>Recuperar Nota Entrada</mat-label>
+       <button (click)="recuperarNotaEntrada()" [disabled]="nuevo" mat-icon-button color="primary"><mat-icon>note</mat-icon></button>
+
+    </div>
+    <div fxFlex  fxLayout="column">
+      <mat-label>Recuperar Nota Salida</mat-label>
+      <button (click)="recuperarNotaSalida()" [disabled]="nuevo" mat-icon-button color="warn"><mat-icon>sticky_note_2</mat-icon></button>
+
+    </div>
+   <div fxFlex fxLayout="column">
+    <mat-label>Recuperar Orden Compra </mat-label>
+    <button (click)="recuperarOrdenCompra()" [disabled]="nuevo" mat-icon-button><mat-icon>speaker_notes</mat-icon></button>
+
+   </div>
+
+  </div>
+</div>

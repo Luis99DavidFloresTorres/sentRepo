@@ -1,0 +1,19 @@
+<div infiniteScroll
+    [infiniteScrollDistance]="2"
+    [infiniteScrollThrottle]="50"
+    fxLayout = "row wrap" fxLayoutAlign="center" fxLayoutGap.gt-lg="50px" fxLayoutGap="20px">
+    <div fxFlex.xs="100" fxFlex.gt-xs="calc(50% -20px)" fxFlex.lg="calc(33.3% -20px)"
+    fxFlex.gt-lg="0 1 calc(25% - 50px)" fxLayout="column" fxLayoutAlign="center center" *ngFor="let producto of productos">
+      <mat-card style="width: 100%; height: 100%;">
+        <mat-card-title style="color: blueviolet;">{{producto.nombre}}</mat-card-title>
+        <div>
+          <img style="width: 250px; height: 250px;" [src]="producto.urlPortada">
+        </div>
+        <mat-card-content>
+          <p>{{producto.modelo}}</p>
+          <p>{{producto.detalle}}</p>
+          <div  style="color: lightskyblue;">{{producto.precio}}&nbsp; Bs</div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>

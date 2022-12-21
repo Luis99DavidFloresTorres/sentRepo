@@ -1,0 +1,29 @@
+<div>
+  <mat-card>
+    <form [formGroup]="formG" (submit)="buscarFecha()">
+      <mat-form-field appearance="legacy">
+        <mat-label>Ingrese fecha deseada</mat-label>
+        <input required  matInput placeholder="mm-dd-aaaa" name="fecha" formControlName="fechaBuscar" [matDatepicker]="fechaF">
+        <mat-datepicker-toggle matSuffix [for]="fechaF"></mat-datepicker-toggle>
+        <mat-datepicker #fechaF></mat-datepicker>
+      </mat-form-field>
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Nombre del Deposito</mat-label>
+        <input type="text"
+
+               placeholder="Nombre del Deposito"
+               aria-label="Deposito"
+               matInput
+               formControlName="myControl"
+               required
+               [matAutocomplete]="auto">
+        <mat-autocomplete #auto="matAutocomplete">
+          <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+            {{option}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+      <button mat-raised-button type="submit" color="primary" [disabled]="formG.invalid">buscar</button>
+    </form>
+  </mat-card>
+</div>

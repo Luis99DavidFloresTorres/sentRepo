@@ -1,0 +1,35 @@
+<div>
+  <h1>Nota Salida</h1>
+<div fxLayoutAlign= "center center" >
+  <mat-form-field  color= "primary" fxFlex="30%">
+    <input matInput id="input" placeholder="buscador" (keyup)="hacerFiltro($any($event.target).value)">
+    <mat-icon fxFlex color="primary">search</mat-icon>
+  </mat-form-field>
+</div>
+<mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
+  <ng-container matColumnDef="nrodoc">
+    <mat-header-cell  *matHeaderCellDef mat-sort-header>Nro Doc IP</mat-header-cell>
+    <mat-cell *matCellDef="let element">  {{element.nrodoc}} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="fecha">
+    <mat-header-cell  *matHeaderCellDef mat-sort-header>Fecha</mat-header-cell>
+    <mat-cell *matCellDef="let element">  {{element.fecha}} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="proyecto.nombre">
+    <mat-header-cell  *matHeaderCellDef mat-sort-header>Proyecto</mat-header-cell>
+    <mat-cell  *matCellDef="let element">  {{element.proyectoNombre }} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="cliente.nombre">
+    <mat-header-cell  *matHeaderCellDef mat-sort-header>Cliente</mat-header-cell>
+    <mat-cell  *matCellDef="let element">  {{element.clienteNombre }} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="insertar">
+    <mat-header-cell  *matHeaderCellDef mat-sort-header>Insertar</mat-header-cell>
+    <mat-cell *matCellDef="let element" fxLayoutGap="10px">
+      <button mat-fab color="primary" (click) = "insertarDocumento(element.id)"><mat-icon>edit</mat-icon></button>
+    </mat-cell>
+  </ng-container>
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+</mat-table>
+</div>

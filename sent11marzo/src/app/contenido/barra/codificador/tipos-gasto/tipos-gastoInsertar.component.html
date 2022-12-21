@@ -1,0 +1,52 @@
+<form  [formGroup]="formInsertar" >
+  <h1 mat-dialog-title>Agregar tipo gasto</h1>
+  <mat-dialog-content>
+    <section fxLayoutAlign="center">
+        <mat-card fxFlex="100%">
+          <div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px">
+            <mat-form-field style="width: 100%">
+              <mat-label>Ingrese el codigo del gasto</mat-label>
+              <input matInput type="text" name="codigo" placeholder="CGA-003" formControlName="codigo" required>
+              <mat-error>Debe ingresar el codigo</mat-error>
+            </mat-form-field>
+            <mat-form-field style="width: 100%">
+              <mat-label>Ingrese el nombre del gasto</mat-label>
+              <input matInput type="text" name="nombreGasto" placeholder="Aporte Cainco" formControlName="nombre" required>
+              <mat-error>Debe ingresar el nombre del tipo de gasto</mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="standard">
+              <mat-label>Ingrese el Tipo de Gasto</mat-label>
+              <mat-select #f formControlName="tipoGastoSelect" (selectionChange)="tipoGastoC($any($event).value)">
+              <mat-option>--</mat-option>
+              <mat-option  *ngFor="let gastos of tipoGastos" [value]="gastos">
+                {{gastos}}
+              </mat-option>
+              </mat-select>
+
+              <mat-hint>Indique el tipo de gasto</mat-hint>
+            </mat-form-field>
+            <mat-form-field appearance="standard">
+              <mat-label>Unidad</mat-label>
+              <mat-select #f formControlName="unidadSelect" (selectionChange)="unidadC($any($event).value)">
+              <mat-option>--</mat-option>
+              <mat-option  *ngFor="let unidad of unidades" [value]="unidad">
+                {{unidad}}
+              </mat-option>
+              </mat-select>
+
+              <mat-hint>Indique el tipo de unidad</mat-hint>
+            </mat-form-field>
+            <mat-form-field style="width: 100%">
+              <mat-label>Ingrese el precio</mat-label>
+              <input matInput type="text" name="precio" placeholder="110.0" formControlName="precio" required>
+              <mat-error>Debe ingresar el precio </mat-error>
+            </mat-form-field>
+          </div>
+        </mat-card>
+    </section>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button mat-button [mat-dialog-close]="true" >Cerrar</button>
+    <button mat-button [disabled]="formInsertar.invalid" (click)="guardar()" type="submit" >Agregar</button>
+  </mat-dialog-actions>
+</form>

@@ -1,0 +1,72 @@
+<div fxLayoutAlign="center center">
+  <button mat-raised-button (click)="buscar()"><mat-icon>search</mat-icon></button>
+  <button mat-raised-button><mat-icon>print</mat-icon></button>
+  <button mat-raised-button><mat-icon>quit</mat-icon></button>
+</div>
+<form [formGroup]="formGroup" fxLayout="column" fxLayoutAlign="center center">
+  <mat-form-field>
+    <mat-label>Nombre del Proyecto</mat-label>
+    <input matInput formControlName="nombreProyecto">
+  </mat-form-field>
+  <div fxLayoutGap="7px">
+    <mat-form-field>
+      <mat-label>Codigo</mat-label>
+      <input matInput formControlName="codigo">
+    </mat-form-field>
+    <mat-form-field appearance="legacy">
+      <mat-label>Ingrese fecha deseada</mat-label>
+      <input required  matInput placeholder="dd-mm-aaaa" name="fecha" formControlName="fecha" [matDatepicker]="fechaF">
+      <mat-datepicker-toggle matSuffix [for]="fechaF"></mat-datepicker-toggle>
+      <mat-datepicker #fechaF></mat-datepicker>
+    </mat-form-field>
+  </div>
+  <mat-form-field>
+    <mat-label>Cliente</mat-label>
+    <input matInput formControlName="cliente">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Contacto</mat-label>
+    <input matInput formControlName="contacto">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Detalle</mat-label>
+    <input matInput formControlName="detalle">
+  </mat-form-field>
+</form>
+<mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
+  <ng-container matColumnDef="id" >
+    <mat-header-cell  *matHeaderCellDef mat-sort-header>Id</mat-header-cell>
+    <mat-cell *matCellDef="let element">  {{element.id}} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="producto.codigo">
+    <mat-header-cell  *matHeaderCellDef mat-sort-header>Codigo</mat-header-cell>
+    <mat-cell *matCellDef="let element">  {{element.producto.codigo | vacios}} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="producto.nombre">
+    <mat-header-cell  *matHeaderCellDef mat-sort-header>Producto</mat-header-cell>
+    <mat-cell *matCellDef="let element">  {{element.producto | nullWithDefault}} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="producto.unidad.nombre">
+    <mat-header-cell  *matHeaderCellDef mat-sort-header>Unidad</mat-header-cell>
+    <mat-cell *matCellDef="let element">  {{element.producto.unidad.nombre | vacios}} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="cantidad">
+    <mat-header-cell  *matHeaderCellDef mat-sort-header>Cantidad</mat-header-cell>
+    <mat-cell *matCellDef="let element">  {{element.cantidad}} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="transproducto.fecha">
+    <mat-header-cell  *matHeaderCellDef mat-sort-header>Fecha</mat-header-cell>
+    <mat-cell *matCellDef="let element">  {{element.entregaanterior}} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="transproducto.useract">
+    <mat-header-cell  *matHeaderCellDef mat-sort-header>Responsable</mat-header-cell>
+    <mat-cell *matCellDef="let element">  {{element.transproducto.useract}} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="costoTotal">
+    <mat-header-cell  *matHeaderCellDef mat-sort-header>Monto</mat-header-cell>
+    <mat-cell *matCellDef="let element">  {{element.costoTotal}} </mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+</mat-table>

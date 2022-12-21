@@ -1,0 +1,25 @@
+<form  [formGroup]="formInsertar" >
+  <h1 mat-dialog-title>Agregar Rubro</h1>
+  <mat-dialog-content>
+    <section fxLayoutAlign="center">
+        <mat-card fxFlex="100%">
+          <div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px">
+            <mat-form-field style="width: 100%">
+              <mat-label>Ingrese el nombre del rubro</mat-label>
+              <input matInput type="text" name="codigo" placeholder="Banco" formControlName="nombre" required>
+              <mat-error>Debe ingresar el nombre del rubro</mat-error>
+            </mat-form-field>
+            <mat-form-field style="width: 100%">
+              <mat-label>Ingrese el detalle del rubro</mat-label>
+              <input matInput type="text" name="pais" placeholder="Financiera" formControlName="detalle" required>
+              <mat-error>Debe ingresar el detalle del rubro </mat-error>
+            </mat-form-field>
+          </div>
+        </mat-card>
+    </section>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button mat-button [mat-dialog-close]="true" >Cerrar</button>
+    <button mat-button [disabled]="formInsertar.invalid" (click)="guardarRubro()" type="submit" >Agregar</button>
+  </mat-dialog-actions>
+</form>

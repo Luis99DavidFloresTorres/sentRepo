@@ -1,0 +1,26 @@
+<div fxFlex>
+  <div>
+    <label>{{nombreCliente}}</label>
+    <button (click)="detalleActivar()" color="primary" mat-button>Proyecto Detalle</button>
+    <button (click)="detalleOcultar()" color="accent" mat-button>Ocultar</button>
+  </div>
+  <div fxFlex *ngIf="detalleProyectoActivado">
+    <label>{{producto[0].proyecto.detalle}}</label>
+    <button (click)="productoActivar()" color="primary" mat-button>Productos</button>
+    <button (click)="productoOcultar()" color="accent" mat-button>Ocultar</button>
+  </div>
+  <div fxFlex *ngIf="productoActivado">
+      <div *ngFor="let pro of producto">
+        <mat-label>{{pro.producto.nombre}}</mat-label>
+      </div>
+      <div>
+        <button (click)="detalleProductoActivar()" color="primary" mat-button>Detalle Producto</button>
+        <button (click)="detalleProductoOcultar()" color="accent" mat-button>Ocultar</button>
+      </div>
+  </div>
+  <div fxFlex *ngIf="detalleProductoActivado">
+    <div *ngFor="let pro of producto">
+      <mat-label>{{pro.producto.detalle}}</mat-label>
+    </div>
+  </div>
+</div>

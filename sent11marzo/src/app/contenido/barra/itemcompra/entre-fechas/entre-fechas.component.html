@@ -1,0 +1,110 @@
+<div fxLayoutAlign="center center" >
+  <button type="button" (click)="buscar()" mat-raised-button color="accent">Buscar</button>
+
+</div>
+<form  [formGroup]="formGroup" fxLayoutGap="30px" fxLayoutAlign="center center">
+  <mat-form-field appearance="fill">
+    <mat-label>Enter a date range</mat-label>
+    <mat-date-range-input [formGroup]="range" [rangePicker]="picker">
+      <input matStartDate formControlName="start" placeholder="Start date">
+      <input matEndDate formControlName="end" placeholder="End date">
+    </mat-date-range-input>
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-date-range-picker #picker></mat-date-range-picker>
+
+    <mat-error *ngIf="range.controls.start.hasError('matStartDateInvalid')">Invalid start date</mat-error>
+    <mat-error *ngIf="range.controls.end.hasError('matEndDateInvalid')">Invalid end date</mat-error>
+  </mat-form-field>
+  <mat-form-field>
+    <input type="text"
+          placeholder="Nombre del Producto"
+          aria-label="Producto"
+          matInput
+          formControlName="myControl"
+          required
+          [matAutocomplete]="auto">
+    <mat-autocomplete #auto="matAutocomplete">
+      <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+        {{option}}
+      </mat-option>
+    </mat-autocomplete>
+
+  </mat-form-field>
+
+</form >
+<div  *ngIf="activar">
+  <div fxLayoutAlign="center center">
+    <mat-form-field  color= "primary" fxFlex="30%">
+      <input matInput id="input" placeholder="buscador" (keyup)="hacerFiltro($any($event.target).value)">
+      <mat-icon fxFlex color="primary">search</mat-icon>
+
+    </mat-form-field>
+  </div>
+  <div>
+    <mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
+      <ng-container matColumnDef="id" >
+        <mat-header-cell  *matHeaderCellDef mat-sort-header>Id</mat-header-cell>
+        <mat-cell *matCellDef="let element">  {{element.id}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="ordencompra.total">
+        <mat-header-cell  *matHeaderCellDef mat-sort-header>Total</mat-header-cell>
+        <mat-cell *matCellDef="let element">  {{element.ordencompra.total}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="ordencompra.fecha">
+        <mat-header-cell  *matHeaderCellDef mat-sort-header>Fecha</mat-header-cell>
+        <mat-cell *matCellDef="let element">  {{element.ordencompra.fecha|date:"dd/MM/yyyy"}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="ordencompra.nrodoc">
+        <mat-header-cell  *matHeaderCellDef mat-sort-header>Nro doc</mat-header-cell>
+        <mat-cell *matCellDef="let element">  {{element.ordencompra.nrodoc}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="ordencompra.cliente.nombre">
+        <mat-header-cell  *matHeaderCellDef mat-sort-header>Cliente</mat-header-cell>
+        <mat-cell *matCellDef="let element">  {{element.ordencompra.cliente.nombre}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="ordencompra.fecha">
+        <mat-header-cell  *matHeaderCellDef mat-sort-header>Fecha</mat-header-cell>
+        <mat-cell *matCellDef="let element">  {{element.ordencompra.fecha | date:"dd/MM/yy"}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="boton">
+        <mat-header-cell  *matHeaderCellDef mat-sort-header>Fecha</mat-header-cell>
+        <mat-cell *matCellDef="let element"> <button (click)="items(element.notaventa)" mat-raised-button>Items de la nota venta</button>  </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+  </div>
+</div>
+<div>
+  <mat-table [dataSource]="itemsOrdenCompra" class="mat-elevation-z8" matSort>
+    <ng-container matColumnDef="id" >
+      <mat-header-cell  *matHeaderCellDef mat-sort-header>Id</mat-header-cell>
+      <mat-cell *matCellDef="let element">  {{element.id}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="producto.nombre">
+      <mat-header-cell  *matHeaderCellDef mat-sort-header>Producto</mat-header-cell>
+      <mat-cell *matCellDef="let element">  {{element.producto.nombre}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="producto.codigo">
+      <mat-header-cell  *matHeaderCellDef mat-sort-header>Codigo</mat-header-cell>
+      <mat-cell *matCellDef="let element">  {{element.producto.codigo}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="cantidad" >
+      <mat-header-cell  *matHeaderCellDef mat-sort-header>Cantidad</mat-header-cell>
+      <mat-cell *matCellDef="let element">  {{element.cantidad}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="subtotal">
+      <mat-header-cell  *matHeaderCellDef mat-sort-header>Total</mat-header-cell>
+      <mat-cell *matCellDef="let element">  {{element.subtotal}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="boton">
+      <mat-header-cell  *matHeaderCellDef mat-sort-header>Fecha</mat-header-cell>
+      <mat-cell *matCellDef="let element"> <button (click)="items(element.notaventa)" color="primary" mat-raised-button>Items de la nota venta</button>  </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumnsItems"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumnsItems;"></mat-row>
+  </mat-table>
+</div>

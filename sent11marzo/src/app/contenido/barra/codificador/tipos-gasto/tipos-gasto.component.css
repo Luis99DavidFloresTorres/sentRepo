@@ -1,0 +1,13 @@
+#agregar{
+  position: absolute;
+  right: 30px;
+  left: 30px;
+  top: auto;
+}
+::ng-deep.mat-form-field-underline {
+  /*change color of underline*/
+  background-color: black !important;
+}
+input{
+  color:black;
+}

@@ -1,0 +1,170 @@
+<form [formGroup]="formProducto" style="height: 90%;" *ngIf="formProducto">
+  <mat-dialog-content>
+    <section fxLayoutAlign="center">
+        <mat-card fxFlex="70%">
+          <mat-card-header>
+            <div mat-card-avatar class="example-header-image"></div>
+            <mat-card-title>Gestion Productos</mat-card-title>
+            <mat-card-subtitle>{{nombreProducto}}</mat-card-subtitle>
+          </mat-card-header>
+          <img *ngIf="previsualizacion" style="width: 300px;" mat-card-image  [src]="previsualizacion" ><br> <!--[src]="previsualizacion"-->
+          <!--<input [value]="srcImages" style="width: 100%;" [disabled]=true><br>-->
+          <input hidden formControlName="id">
+          <button type="button" color="primary" mat-raised-button (click)="fileInput.click()"><mat-icon>cloud_upload</mat-icon></button>
+          <input hidden formControlName="images" (change)="obtenerFoto($event)" #fileInput type="file" id="file">
+         <!-- <input  accept="image/*" (change)="obtenerFoto($event)" type="file" class="file-input" >-->
+          <div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px">
+            <div style="width:100%" fxLayoutGap="10%">
+              <div>
+                <div>
+                </div>
+              </div>
+
+            </div>
+             <div fxLayoutGap = "30px">
+
+                <mat-form-field fxFlex style="width:50%">
+                  <mat-label>Codigo</mat-label>
+                  <input matInput type="text" name="codigo" placeholder="Ingrese el codigo producto" formControlName="codigo" required>
+                  <mat-error>Debe ingresar el codigo del producto</mat-error>
+                </mat-form-field>
+                <mat-select  formControlName="codigos" (selectionChange)="codigoChange($any($event).value)">
+                  <mat-option>Codigos</mat-option>
+                  <mat-option *ngFor="let codigoF of codigosVector" [value]="codigoF">
+                    {{codigoF}}
+                  </mat-option>
+                  </mat-select>
+             </div>
+
+            <mat-form-field style="width: 100%">
+              <mat-label>Nombre Producto</mat-label>
+              <input matInput type="text" name="producto" placeholder="Ingrese nombre producto" formControlName="producto" required>
+              <mat-error>Debe ingresar el nombre del producto</mat-error>
+            </mat-form-field>
+            <mat-form-field style="width: 100%">
+              <mat-label>Marca o referencia</mat-label>
+              <input matInput type="text" name="marca" placeholder="Ingrese la marca o referencia" formControlName="marca" >
+              <mat-error>Debe ingresar la marca</mat-error>
+            </mat-form-field>
+            <mat-form-field style="width: 100%">
+              <mat-label>Modelo</mat-label>
+              <input matInput type="text" name="modelo" placeholder="Ingrese el modelo" formControlName="modelo" >
+              <mat-error>Debe ingresar el modelo</mat-error>
+            </mat-form-field>
+            <mat-form-field style="width: 100%">
+              <mat-label>Industria</mat-label>
+              <input matInput type="text" name="industria" placeholder="Ingrese la industria" formControlName="industria" >
+              <mat-error>Debe ingresar la industria</mat-error>
+            </mat-form-field>
+            <div class="select0" id="div1" fxLayoutGap="10%">
+              <mat-form-field class="select1" appearance="standard">
+                <mat-label>Unidades</mat-label>
+                <mat-select formControlName="unidad" (selectionChange)="unidadS($any($event).value)" >
+                <mat-option>--</mat-option>
+                <mat-option *ngFor="let unidadF of unidades" [value]="unidadF">
+                  {{unidadF}}
+                </mat-option>
+                </mat-select>
+                <mat-hint>Unidades</mat-hint>
+              </mat-form-field>
+              <mat-form-field class="select2" appearance="standard">
+                <mat-label>Tipo Bien</mat-label>
+                <mat-select formControlName="tipoBien" (selectionChange)="tipoS($any($event).value)">
+                <mat-option>--</mat-option>
+                <mat-option *ngFor="let tipoB of tiposBien" [value]="tipoB">
+                  {{tipoB}}
+                </mat-option>
+                </mat-select>
+              <!--  <mat-error *ngIf="nroBanosControl.hasError('required')">Cantidad de baños</mat-error> -->
+                <mat-hint>Tipos de bienes</mat-hint>
+              </mat-form-field>
+          </div>
+          <div style="width: 100%;" fxLayoutGap="10%">
+            <mat-form-field class="select1" style="width: 40%">
+              <mat-label>Costo</mat-label>
+              <input matInput type="number" name="costo" (keyup)="costoChange($any($event).target.value)" placeholder="Ingrese el costo" formControlName="costo" >
+              <mat-error>Debe ingresar el costo</mat-error>
+            </mat-form-field>
+            <mat-form-field class="select2" style="width: 40%">
+              <mat-label>Us</mat-label>
+              <input matInput  type="text" name="dolar"  value="70" formControlName="dolar"  placeholder="Ingrese el dolar">
+            </mat-form-field>
+          </div>
+          <mat-form-field style="width: 100%">
+            <mat-label>Utilidad</mat-label>
+            <input matInput type="number" name="utilidad" placeholder="Ingrese la utilidad" (keyup)="utilidadPrecio($any($event).target.value)" formControlName="utilidad" >
+            <mat-error>Debe ingresar la utilidad</mat-error>
+          </mat-form-field>
+          <div style="width: 100%;" fxLayoutGap="10%">
+            <mat-form-field style="width: 40%">
+              <mat-label>Precio</mat-label>
+              <input matInput type="text" name="precio" placeholder="Ingrese el precio" (keyup)="precioChange($any($event).target.value)" formControlName="precio" >
+              <mat-error>Debe ingresar el precio</mat-error>
+            </mat-form-field>
+            <mat-form-field style="width: 40%">
+              <mat-label>Dolar</mat-label>
+              <input matInput type="text" name="dolar2" placeholder="Ingrese el dolar" formControlName="dolar2" >
+            </mat-form-field>
+          </div>
+          <div style="width: 100%;" fxLayoutGap="10%">
+            <mat-form-field style="width: 40%">
+              <mat-label>Descuento Tipo A</mat-label>
+              <input matInput type="text" name="descA" placeholder="Ingrese el descuento" (keyup)="descuentoAPrecio($any($event).target.value)" formControlName="descA" >
+              <mat-error>Debe ingresar el descuento</mat-error>
+            </mat-form-field>
+            <mat-form-field style="width: 40%">
+              <mat-label>Precio A</mat-label>
+              <input matInput type="text" name="descA" placeholder="Ingrese el precio" formControlName="precioA" >
+
+            </mat-form-field>
+          </div>
+          <div style="width: 100%;" fxLayoutGap="10%">
+            <mat-form-field style="width: 40%">
+              <mat-label>Descuento Tipo B</mat-label>
+              <input matInput type="text" name="descB" placeholder="Ingrese la industria" (keyup)="descuentoBPrecio($any($event).target.value)" formControlName="descB" >
+              <mat-error>Debe ingresar el descuento</mat-error>
+            </mat-form-field>
+            <mat-form-field style="width: 40%">
+              <mat-label>Precio B</mat-label>
+              <input matInput type="text" name="precioB" placeholder="Ingrese la industria" formControlName="precioB" >
+              <mat-error>Debe ingresar el precio</mat-error>
+            </mat-form-field>
+          </div>
+          <div style="width: 100%;" fxLayoutGap="10%">
+            <mat-form-field style="width: 40%">
+              <mat-label>Descuento Tipo C</mat-label>
+              <input matInput type="text" name="descC" placeholder="Ingrese la industria" (keyup)="descuentoCPrecio($any($event).target.value)" formControlName="descC" >
+              <mat-error>Debe ingresar el descuento</mat-error>
+            </mat-form-field>
+            <mat-form-field style="width: 40%">
+              <mat-label>Precio C</mat-label>
+              <input matInput type="text" name="descC" placeholder="Ingrese la industria" formControlName="precioC" >
+              <mat-error>Debe ingresar el precio</mat-error>
+            </mat-form-field>
+          </div>
+          <mat-form-field style="width: 100%">
+            <mat-label>Periodo de garantia</mat-label>
+            <input matInput type="text" name="periodoG" placeholder="Ingrese el periodo de Garantia" formControlName="periodoG" >
+            <mat-error>Debe ingresar el periodo de garantia</mat-error>
+          </mat-form-field>
+          <mat-form-field  style="width: 100%;" appearance="fill">
+            <mat-label>Detalle</mat-label>
+            <textarea formControlName="detalle" matInput rows="3" ></textarea>
+          </mat-form-field>
+          </div>
+
+        </mat-card>
+    </section>
+ </mat-dialog-content>
+  <mat-dialog-actions >
+    <div fxFlex fxLayoutAlign="space-around">
+    <button mat-button *ngIf="agregar" class="agregar" [disabled]="formProducto.invalid && activarAgregar" type="submit" (click)="agregarF()" >Agregar</button>
+    <button mat-button *ngIf="editar" class="editar" [disabled]="formProducto.invalid && activarEditar" type="submit" (click)="editarF()" >Editar</button>
+    </div>
+    <div fxFlex fxLayoutAlign="space-around">
+    <button mat-button [mat-dialog-close]="true" >Cerrar</button>
+    </div>
+  </mat-dialog-actions>
+
+</form>
+

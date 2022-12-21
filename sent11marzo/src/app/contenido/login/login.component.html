@@ -1,0 +1,25 @@
+<div >
+<form [formGroup]="formGroup" fxFlex  fxLayoutAlign="center center" style="margin-top: 50px; ">
+  <section fxLayout="column" fxLayoutGap="30px" style=" height: 300px; width: 400px;">
+  <mat-card fxLayout="column" fxLayoutAlign="space-around center">
+  <mat-form-field appearance="fill">
+    <mat-label>Ingrese el usuario</mat-label>
+    <input matInput type="text" formControlName="usuario">
+    <mat-error></mat-error>
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>Ingrese la contraseña</mat-label>
+    <input matInput type="password" formControlName="contrasena">
+    <mat-error></mat-error>
+  </mat-form-field>
+  <button mat-fab color="accent" (click)="buscarUsuario()"><mat-icon>login</mat-icon></button>
+  </mat-card>
+   <mat-card-actions fxLayoutGap="30%">
+    <div fxFlex fxLayoutAlign = "space-around">
+    <button mat-raised-button class="registrar">Registrar</button>
+    <button mat-raised-button class="cliente" (click)="ingresarComoCliente()" routerLink="/inicial" color="primary">Ingresar como Cliente</button>
+    </div>
+   </mat-card-actions>
+</section>
+</form>
+</div>

@@ -1,0 +1,12 @@
+<form [formGroup]="formGroup" fxLayout="column" fxLayoutAlign="center center">
+  <mat-form-field style="width: 70%;">
+    <mat-label>Ingrese el prefijo del codigo (sin guion)</mat-label>
+    <input matInput formControlName="codigo"  maxlength="7" type="text" pattern="[A-Za-z0-9]{1,7}" placeholder="sv">
+  </mat-form-field>
+  <mat-form-field  style="width: 70%;">
+    <mat-label>Ingrese el nombre completo del codigo</mat-label>
+    <input matInput formControlName="nombre">
+  </mat-form-field>
+  <button [disabled]="formGroup.invalid" (click)="editarF()" *ngIf="editar" mat-raised-button color="primary">Editar</button>
+  <button [disabled]="formGroup.invalid" (click)="insertarF()" *ngIf="insertar" mat-raised-button color="primary">Insertar</button>
+</form>

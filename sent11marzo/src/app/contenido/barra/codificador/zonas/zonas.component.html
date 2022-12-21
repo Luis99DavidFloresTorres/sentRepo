@@ -1,0 +1,32 @@
+<div>
+<div fxLayoutAlign= "center center" class="create-account-form">
+  <mat-form-field  color= "primary" fxFlex="60%">
+    <input matInput id="input" placeholder="buscador" (keyup)="hacerFiltro($any($event.target).value)">
+  </mat-form-field>
+</div>
+<mat-table style="height:100%; width:100%; font-size: 10%" [dataSource]="dataSource" class="mat-elevation-z8" matSort>
+  <ng-container matColumnDef="codigo">
+    <mat-header-cell  *matHeaderCellDef mat-sort-header>Codigo</mat-header-cell>
+    <mat-cell *matCellDef="let element">  {{element.codigo}} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="ciudad">
+    <mat-header-cell  *matHeaderCellDef mat-sort-header>Ciudad</mat-header-cell>
+    <mat-cell *matCellDef="let element">  {{element.ciudad.nombre}} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="nombre">
+    <mat-header-cell  *matHeaderCellDef mat-sort-header>Nombre</mat-header-cell>
+    <mat-cell *matCellDef="let element">  {{element.nombre}} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="enlace">
+    <mat-header-cell  *matHeaderCellDef mat-sort-header>Operación</mat-header-cell>
+    <mat-cell *matCellDef="let element"> <button mat-button (click) = "editar(element.id)">editar</button>
+     </mat-cell>
+  </ng-container>
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+</mat-table>
+
+<button mat-fab color="warn" id="agregar" (click)="abrirDialog()">
+  <mat-icon>add</mat-icon>
+</button>
+</div>

@@ -1,0 +1,29 @@
+<form [formGroup]="formG" class="example-form">
+  <mat-form-field class="example-full-width" appearance="fill" >
+    <mat-label>Seleccionar el deposito</mat-label>
+    <mat-select formControlName="deposito" (selectionChange)="depositoSeleccionado($any($event).value)">
+      <mat-option *ngFor="let deposito of depositos" [value]="deposito">
+        {{deposito}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field class="example-full-width" appearance="fill">
+    <mat-label>Nombre del Producto</mat-label>
+    <input type="text"
+
+           placeholder="Nombre del Producto"
+           aria-label="Productos"
+           matInput
+           formControlName="myControl"
+           required
+           [matAutocomplete]="auto">
+    <mat-autocomplete #auto="matAutocomplete">
+      <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+        {{option}}
+      </mat-option>
+    </mat-autocomplete>
+
+  </mat-form-field>
+
+  <button mat-raised-button color="primary" [disabled]="formG.invalid" (click)="buscarNombre()">Buscar</button>
+</form>

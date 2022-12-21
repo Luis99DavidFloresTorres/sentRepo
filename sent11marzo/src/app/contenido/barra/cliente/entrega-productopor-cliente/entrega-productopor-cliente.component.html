@@ -1,0 +1,122 @@
+<div fxLayoutAlign="center center" >
+  <button type="button" (click)="buscar()" mat-raised-button>Buscar</button>
+</div>
+<form  [formGroup]="formGroup" fxLayoutGap="30px" fxLayoutAlign="center center">
+  <mat-form-field appearance="fill">
+    <mat-label>Enter a date range</mat-label>
+    <mat-date-range-input [formGroup]="range" [rangePicker]="picker">
+      <input matStartDate formControlName="start" placeholder="Start date">
+      <input matEndDate formControlName="end" placeholder="End date">
+    </mat-date-range-input>
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-date-range-picker #picker></mat-date-range-picker>
+
+    <mat-error *ngIf="range.controls.start.hasError('matStartDateInvalid')">Invalid start date</mat-error>
+    <mat-error *ngIf="range.controls.end.hasError('matEndDateInvalid')">Invalid end date</mat-error>
+  </mat-form-field>
+ <!-- <mat-form-field>
+    <input type="text"
+          placeholder="Nombre del Cliente"
+          aria-label="cliente"
+          matInput
+          formControlName="myControl"
+          required
+          [matAutocomplete]="auto">
+    <mat-autocomplete #auto="matAutocomplete">
+      <mat-option *ngFor="let option of filteredOptions | async; let idx = index" [value]="option" (click)="clienteGuardar(idx)">
+        {{option}}
+      </mat-option>
+    </mat-autocomplete>
+
+  </mat-form-field>-->
+  <mat-form-field appearance="fill">
+    <mat-label>Nombre Cliente</mat-label>
+    <mat-select formControlName="myControl">
+      <mat-option *ngFor="let option of options; let idx = index"   [value]="option" (click)="clienteGuardar(idx)">
+        {{option}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <button mat-icon-button (click)="buscarClientes()"><mat-icon>search</mat-icon></button>
+</form >
+<div >
+  <div fxLayoutAlign="center center">
+    <mat-form-field  color= "primary" fxFlex="30%">
+      <input matInput id="input" placeholder="buscador" (keyup)="hacerFiltro($any($event.target).value)">
+      <mat-icon fxFlex color="primary">search</mat-icon>
+
+    </mat-form-field>
+  </div>
+  <div>
+    <mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
+      <ng-container matColumnDef="id" >
+        <mat-header-cell  *matHeaderCellDef mat-sort-header>Id</mat-header-cell>
+        <mat-cell *matCellDef="let element">  {{element.id}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="transproducto.oper">
+        <mat-header-cell  *matHeaderCellDef mat-sort-header>Tipo Trans</mat-header-cell>
+        <mat-cell *matCellDef="let element">  {{element.transproducto.oper}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="transproducto.nrodoc">
+        <mat-header-cell  *matHeaderCellDef mat-sort-header>Nro documento</mat-header-cell>
+        <mat-cell *matCellDef="let element">  {{element.transproducto.nrodoc}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="transproducto.fecha">
+        <mat-header-cell  *matHeaderCellDef mat-sort-header>Fecha</mat-header-cell>
+        <mat-cell *matCellDef="let element">  {{element.transproducto.fecha|date:"dd/MM/yyyy"}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="transproducto.cliente.nombre">
+        <mat-header-cell  *matHeaderCellDef mat-sort-header>Producto</mat-header-cell>
+        <mat-cell *matCellDef="let element">  {{element.transproducto.cliente.nombre}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="cantidad">
+        <mat-header-cell  *matHeaderCellDef mat-sort-header>Salidas</mat-header-cell>
+        <mat-cell *matCellDef="let element">  {{element.cantidad}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="producto.nombre">
+        <mat-header-cell  *matHeaderCellDef mat-sort-header>Producto</mat-header-cell>
+        <mat-cell *matCellDef="let element">  {{element.producto.nombre}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="producto.precio">
+        <mat-header-cell  *matHeaderCellDef mat-sort-header>Precio</mat-header-cell>
+        <mat-cell *matCellDef="let element">  {{element.producto.precio}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="transproducto.factura">
+        <mat-header-cell  *matHeaderCellDef mat-sort-header>Factura</mat-header-cell>
+        <mat-cell *matCellDef="let element">  {{element.transproducto.factura}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="transproducto.detalle">
+        <mat-header-cell  *matHeaderCellDef mat-sort-header>Detalle</mat-header-cell>
+        <mat-cell *matCellDef="let element">  {{element.transproducto.detalle}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="costo">
+        <mat-header-cell  *matHeaderCellDef mat-sort-header>Costo</mat-header-cell>
+        <mat-cell *matCellDef="let element">  {{element.costo}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="serial">
+        <mat-header-cell  *matHeaderCellDef mat-sort-header>Serial</mat-header-cell>
+        <mat-cell *matCellDef="let element">  {{element.serial}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="monto">
+        <mat-header-cell  *matHeaderCellDef mat-sort-header>Costo Total</mat-header-cell>
+        <mat-cell *matCellDef="let element">  {{element.monto}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="transproducto.proyecto.nombre">
+        <mat-header-cell  *matHeaderCellDef mat-sort-header>Operacion/Proyecto</mat-header-cell>
+        <mat-cell *matCellDef="let element">  {{element.transproducto.proyecto.nombre}} </mat-cell>
+      </ng-container>
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+  </div>
+  <form fxLayoutAlign="end" fxLayoutGap="10px">
+    <mat-form-field>
+      <mat-label>Cantidad</mat-label>
+      <input matInput [formControl]="cantidad">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Costo Total</mat-label>
+      <input matInput [formControl]="costoTotal">
+    </mat-form-field>
+  </form>
+</div>

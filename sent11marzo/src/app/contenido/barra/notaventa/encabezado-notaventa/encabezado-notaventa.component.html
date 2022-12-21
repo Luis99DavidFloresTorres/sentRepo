@@ -1,0 +1,63 @@
+<form fxFlex fxLayout= "column" [formGroup]="formGroup">
+  <div fxLayoutGap = "10%">
+    <mat-form-field>
+      <mat-label>Nro Doc IP</mat-label>
+    <input matInput formControlName="nroDoc">
+    </mat-form-field>
+    <mat-form-field appearance="legacy">
+      <mat-label>Ingrese fecha deseada</mat-label>
+      <input required  matInput placeholder="mm-dd-aaaa" name="fecha" formControlName="fechaTransaccion" [matDatepicker]="fechaF">
+      <mat-datepicker-toggle matSuffix [for]="fechaF"></mat-datepicker-toggle>
+      <mat-datepicker #fechaF></mat-datepicker>
+    </mat-form-field>
+  </div>
+  <mat-form-field style="width: 10%;">
+    <mat-label >Tipo de venta</mat-label>
+    <mat-select formControlName="ventaOperacion">
+      <mat-option *ngFor="let venta of operacionNotaventa" [value]="venta">
+        {{venta}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <div style="width: 30%;">
+    <div style="width: 30%;" fxFlex>
+      <mat-form-field>
+        <input type="text"
+              placeholder="Nombre del Cliente"
+              aria-label="Cliente"
+              matInput
+              formControlName="cliente"
+              required
+              [matAutocomplete]="auto">
+        <mat-autocomplete #auto="matAutocomplete">
+          <mat-option *ngFor="let option of filteredCliente | async" [value]="option">
+            {{option}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+    </div>
+    <div >
+      <button mat-icon-button (click)="agregarCliente()" color="accent"><mat-icon>add</mat-icon></button>
+      <button mat-icon-button (click)="guardarCliente()" color="primary"><mat-icon>save</mat-icon></button>
+      <button mat-icon-button (click)="cancelarCliente()" color="warn"><mat-icon>cancel</mat-icon></button>
+    </div>
+  </div>
+
+  <mat-form-field style="width: 10%;">
+    <mat-label >Proyecto</mat-label>
+    <input matInput>
+  </mat-form-field>
+  <mat-form-field style="width: 30%;">
+    <mat-label>TipoClienteDescuento</mat-label>
+    <input formControlName="tipodescto" matInput>
+  </mat-form-field>
+  <mat-form-field style="width: 30%;">
+    <mat-label>Nro factura</mat-label>
+    <input formControlName="nroFactura" matInput>
+  </mat-form-field>
+
+  <mat-form-field style="width: 50%;">
+    <mat-label>Observaciones</mat-label>
+    <input formControlName="observaciones" matInput>
+  </mat-form-field>
+</form>

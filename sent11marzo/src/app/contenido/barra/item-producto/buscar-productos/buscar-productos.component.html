@@ -1,0 +1,31 @@
+<div fxLayoutAlign="center center">
+  <mat-form-field  color= "primary" fxFlex="30%">
+    <input matInput id="input" placeholder="buscador" (keyup)="hacerFiltro($any($event.target).value)">
+    <mat-icon fxFlex color="primary">search</mat-icon>
+
+  </mat-form-field>
+</div>
+<mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
+  <ng-container matColumnDef="codigo" >
+    <mat-header-cell  *matHeaderCellDef mat-sort-header>Codigo</mat-header-cell>
+    <mat-cell *matCellDef="let element">  {{element.codigo }} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="nombre">
+    <mat-header-cell  *matHeaderCellDef mat-sort-header>Nombre</mat-header-cell>
+    <mat-cell *matCellDef="let element">  {{element.nombre}} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="detalle">
+    <mat-header-cell  *matHeaderCellDef mat-sort-header>Detalle</mat-header-cell>
+    <mat-cell *matCellDef="let element">  {{element.detalle}} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="serial">
+    <mat-header-cell  *matHeaderCellDef mat-sort-header>Serial</mat-header-cell>
+    <mat-cell *matCellDef="let element">  {{element.serial}} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="agregar">
+    <mat-header-cell  *matHeaderCellDef mat-sort-header>Agregar</mat-header-cell>
+    <mat-cell *matCellDef="let element"><button mat-raised-button color="primary" (click)="agregarProducto(element)">Agregar</button></mat-cell>
+  </ng-container>
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+</mat-table>

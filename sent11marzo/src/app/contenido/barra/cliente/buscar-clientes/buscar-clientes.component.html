@@ -1,0 +1,36 @@
+<div  style=" background: inherit">
+  <div fxLayoutAlign= "center center" class="create-account-form">
+    <mat-form-field  color= "primary" fxFlex="30%">
+      <input matInput id="input" placeholder="buscador" (keyup)="hacerFiltro($any($event.target).value)">
+      <mat-icon fxFlex color="primary">search</mat-icon>
+    </mat-form-field>
+  </div>
+</div>
+<mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
+  <ng-container matColumnDef="id" >
+    <mat-header-cell  *matHeaderCellDef mat-sort-header>Id</mat-header-cell>
+    <mat-cell *matCellDef="let element">  {{element.id}} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="nombre">
+    <mat-header-cell  *matHeaderCellDef mat-sort-header>Nombre</mat-header-cell>
+    <mat-cell *matCellDef="let element">  {{element.nombre}} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="codigo">
+    <mat-header-cell  *matHeaderCellDef mat-sort-header>Código</mat-header-cell>
+    <mat-cell *matCellDef="let element">  {{element.codigo}} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="direccion">
+    <mat-header-cell  *matHeaderCellDef mat-sort-header>Dirección</mat-header-cell>
+    <mat-cell *matCellDef="let element">  {{element.direccion}} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="telefono">
+    <mat-header-cell  *matHeaderCellDef mat-sort-header>Telefono</mat-header-cell>
+    <mat-cell *matCellDef="let element">  {{element.telefono}} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="agregar">
+    <mat-header-cell  *matHeaderCellDef mat-sort-header>Agregar</mat-header-cell>
+    <mat-cell *matCellDef="let element"><button mat-raised-button color="primary" (click)="agregarCliente(element)">Agregar</button></mat-cell>
+  </ng-container>
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+</mat-table>

@@ -1,0 +1,26 @@
+#div1{
+  width: 100%;
+  margin-right: 0;
+  margin-left: 0;
+}
+.select1{
+  margin-left: 0;
+  margin-right: auto;
+}
+.select2{
+  margin-right: 0;
+  margin-left: auto;
+}
+mat-card{
+  height: 100%;
+}
+form{
+  height: 100%;
+}
+mat-dialog-content{
+  height: 95%;
+}
+::ng-deep #agregarProducto {
+  /*change color of underline*/
+  background-color: green !important;
+}

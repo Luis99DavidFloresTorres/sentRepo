@@ -1,0 +1,19 @@
+<form  [formGroup]="formG" (submit)="buscarOperacionFecha()"  class="example-form" >
+  <div fxLayoutGap="20%">
+  <mat-form-field class="example-full-width" appearance="fill" >
+    <mat-label>Seleccionar operacion</mat-label>
+    <mat-select formControlName="selectOpe" (selectionChange)="operacionSeleccionada($any($event).value)">
+      <mat-option *ngFor="let operacion of operaciones" [value]="operacion">
+        {{operacion}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field appearance="legacy">
+    <mat-label>Ingrese fecha deseada</mat-label>
+    <input matInput placeholder="mm-dd-yyyy " name="fecha" formControlName="fechaBuscar" [matDatepicker]="fechaF">
+    <mat-datepicker-toggle matSuffix [for]="fechaF"></mat-datepicker-toggle>
+    <mat-datepicker #fechaF></mat-datepicker>
+  </mat-form-field>
+  </div>
+  <button mat-raised-button color="primary" type="submit" [disabled]="formG.invalid">Buscar</button>
+</form>

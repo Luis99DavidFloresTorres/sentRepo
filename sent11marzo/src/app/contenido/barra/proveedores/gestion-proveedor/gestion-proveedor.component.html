@@ -1,0 +1,94 @@
+<div >
+  <div fxLayoutAlign="center center" fxLayoutGap="10%">
+    <button mat-raised-button style="background-color:#908E8D;">Nuevo<mat-icon>add</mat-icon></button>
+    <button mat-raised-button style="background-color:#908E8D;">Guardar<mat-icon>save</mat-icon></button>
+    <button mat-raised-button style="background-color:#908E8D;">Eliminar<mat-icon>delete</mat-icon></button>
+    <button mat-raised-button style="background-color:#908E8D;">Cerrar<mat-icon>close</mat-icon></button>
+  </div>
+  <div >
+
+    <form  fxLayoutAlign="center center" [formGroup]="formGroup" fxLayout="column" >
+      <mat-form-field style="width:350px;" appearance="outline">
+        <mat-label>Código</mat-label>
+        <input matInput formControlName="codigoF" placeholder="CTE-08106">
+      </mat-form-field>
+      <mat-form-field style="width:350px;" appearance="outline">
+        <mat-label>Nombre Proveedor</mat-label>
+        <input matInput formControlName="nombreF" placeholder="A M COMERCIALIZADORES">
+      </mat-form-field>
+      <mat-form-field style="width:350px;" appearance="outline">
+        <mat-label>Dirección</mat-label>
+        <input matInput formControlName="direccionF" placeholder="RAUL OTERO N 101">
+      </mat-form-field>
+      <mat-form-field style="width:350px;" appearance="outline">
+        <mat-label>Teléfono</mat-label>
+        <input matInput formControlName="telefonoF" placeholder="6466285">
+      </mat-form-field>
+      <mat-form-field style="width:350px;" appearance="outline">
+        <mat-label>Casilla</mat-label>
+        <input matInput formControlName="casillaF" placeholder="casilla">
+      </mat-form-field>
+      <mat-form-field style="width:350px;" appearance="outline">
+        <mat-label>Celular</mat-label>
+        <input matInput formControlName="celularF" placeholder="celular">
+      </mat-form-field>
+      <mat-form-field style="width:350px;" appearance="outline">
+        <mat-label>Fax</mat-label>
+        <input matInput formControlName="faxF" placeholder="fax">
+      </mat-form-field>
+      <mat-form-field style="width:350px;" appearance="outline">
+        <mat-label>E-mail</mat-label>
+        <input matInput formControlName="emailF" placeholder="email">
+      </mat-form-field>
+      <mat-form-field style="width:350px;"  appearance="outline">
+        <mat-label>Cuentas Bancarias</mat-label>
+        <textarea matInput formControlName="cuentaBancariaF" cdkTextareaAutosize cdkAutosizeMinRows="4"
+        cdkAutosizeMaxRows="12"></textarea>
+      </mat-form-field>
+      <mat-form-field style="width:350px;" class="select1" appearance="standard">
+        <mat-label>Rubro</mat-label>
+        <mat-select formControlName="rubroF" (selectionChange)="rubroS($any($event).value)" >
+        <mat-option>--</mat-option>
+        <mat-option *ngFor="let rubroFor of rubros" [value]="rubroFor">
+          {{rubroFor}}
+        </mat-option>
+        </mat-select>
+        <button (click)="buscarRubros()" mat-raised-button matSuffix color="primary"><mat-icon >add</mat-icon></button>
+        <mat-hint>Rubros</mat-hint>
+      </mat-form-field>
+      <mat-form-field style="width:350px;" class="select2" appearance="standard">
+        <mat-label>País</mat-label>
+        <mat-select formControlName="paisF" (selectionChange)="paisS($any($event).value)" >
+        <mat-option>--</mat-option>
+        <mat-option *ngFor="let paisFor of paises" [value]="paisFor">
+          {{paisFor}}
+        </mat-option>
+        </mat-select>
+        <button (click)="buscarPaises()" mat-raised-button matSuffix color="primary"><mat-icon >add</mat-icon></button>
+        <mat-hint>Paises</mat-hint>
+      </mat-form-field>
+      <mat-form-field style="width:350px;" class="select1" appearance="standard">
+        <mat-label>Ciudades</mat-label>
+        <mat-select formControlName="ciudadF" (selectionChange)="ciudadS($any($event).value)" >
+        <mat-option>--</mat-option>
+        <mat-option *ngFor="let ciudadFor of ciudades" [value]="ciudadFor">
+          {{ciudadFor}}
+        </mat-option>
+        </mat-select>
+        <button (click)="buscarCiudades()" mat-raised-button matSuffix color="primary"><mat-icon >add</mat-icon></button>
+        <mat-hint>Ciudades</mat-hint>
+      </mat-form-field>
+    </form>
+  </div>
+  <div fxLayoutAlign="center center">
+    <mat-label>Actualizado por: {{useract}} en: {{fechaact}}</mat-label>
+  </div>
+  <div fxLayoutAlign="center center" fxLayoutGap="10%">
+    <button mat-raised-button style="background-color:#908E8D;" (click)="primer()">Primer<mat-icon>arrow_back_ios</mat-icon></button>
+    <button mat-raised-button style="background-color:#908E8D;" (click)="anterior()">Anterior<mat-icon>fast_rewind</mat-icon></button>
+    <button mat-raised-button style="background-color:#908E8D;" (click)="buscarProveedor()">Buscar<mat-icon>search</mat-icon></button>
+    <button mat-raised-button style="background-color:#908E8D;" (click)="posterior()">Siguiente<mat-icon>fast_forward</mat-icon></button>
+    <button mat-raised-button style="background-color:#908E8D;" (click)="ultimo()">Ultimo<mat-icon>arrow_forward_ios</mat-icon></button>
+  </div>
+</div>
+

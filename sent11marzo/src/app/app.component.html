@@ -1,0 +1,14 @@
+<div style="background: inherit;">
+<mat-sidenav-container>
+  <mat-sidenav #menu role="navigation" color="primary">
+    <app-menu-lista></app-menu-lista>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <app-barra  (barraMenu)="menu.toggle()" color="primary"></app-barra>
+    <main>
+      <router-outlet></router-outlet>
+    </main>
+  </mat-sidenav-content>
+
+</mat-sidenav-container>
+</div>

@@ -1,0 +1,57 @@
+<div fxLayoutAlign="center center">
+  <button mat-raised-button ><mat-icon>save</mat-icon></button>
+  <button mat-raised-button ><mat-icon>exit</mat-icon></button>
+  <button mat-raised-button (click)="buscar()"><mat-icon>search</mat-icon></button>
+  <button mat-raised-button ><mat-icon>print</mat-icon></button>
+</div>
+<form [formGroup]="documento">
+  <div fxLayout="row" fxLayoutGap="15px">
+    <div>
+      <mat-form-field>
+        <mat-label>Nro Doc</mat-label>
+        <input matInput formControlName="nrodoc">
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field>
+        <mat-label>Fecha Asignacion</mat-label>
+        <input matInput (disabled)="true" formControlName="fechaAsignacion">
+      </mat-form-field>
+    </div>
+  </div>
+
+  <mat-form-field>
+    <mat-label>Responsable</mat-label>
+    <input matInput formControlName="responsable">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Observaciones</mat-label>
+    <input matInput formControlName="observaciones">
+  </mat-form-field>
+</form>
+
+<mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
+  <ng-container matColumnDef="activoFijo.codigo" >
+    <mat-header-cell  *matHeaderCellDef mat-sort-header>Codigo</mat-header-cell>
+    <mat-cell *matCellDef="let element">  {{element.activoFijo.codigo}} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="activoFijo.nombre">
+    <mat-header-cell  *matHeaderCellDef mat-sort-header>Nombre Herramienta</mat-header-cell>
+    <mat-cell *matCellDef="let element">  {{element.activoFijo.nombre}} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="detalle">
+    <mat-header-cell  *matHeaderCellDef mat-sort-header>Detalle</mat-header-cell>
+    <mat-cell *matCellDef="let element">  {{element.detalle}} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="activoFijo.unidad">
+    <mat-header-cell  *matHeaderCellDef mat-sort-header>Unidad</mat-header-cell>
+    <mat-cell *matCellDef="let element">  {{element.activoFijo.unidad}} </mat-cell>
+  </ng-container>
+
+
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+</mat-table>
+<div fxLayoutAlign="center center">
+  <mat-label>Actualizado por: {{useract}} en: {{fechaact}}</mat-label>
+</div>

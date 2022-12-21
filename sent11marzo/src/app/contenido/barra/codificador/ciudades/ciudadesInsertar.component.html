@@ -1,0 +1,36 @@
+<form  [formGroup]="formInsertar" (submit)="guardarLibro()">
+  <h1 mat-dialog-title>Agregar Ciudad</h1>
+  <mat-dialog-content>
+    <section fxLayoutAlign="center">
+        <mat-card fxFlex="100%">
+          <div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px">
+            <mat-form-field style="width: 100%">
+              <mat-label>Ingrese el codigo de la ciudad</mat-label>
+              <input matInput type="text" name="codigo" placeholder="CCI-003" formControlName="codigo" required>
+              <mat-error>Debe ingresar el codigo de la ciudad</mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="standard">
+              <mat-label>Paises</mat-label>
+              <mat-select  formControlName="paisSelect" (selectionChange)="paisC($any($event).value)">
+              <mat-option>--</mat-option>
+              <mat-option  *ngFor="let pais of paises" [value]="pais">
+                {{pais}}
+              </mat-option>
+              </mat-select>
+
+              <mat-hint>Indique el pais</mat-hint>
+            </mat-form-field>
+            <mat-form-field style="width: 100%">
+              <mat-label>Ingrese la ciudad</mat-label>
+              <input matInput type="text" name="ciudad" placeholder="Santa Cruz" formControlName="ciudad" required>
+              <mat-error>Debe ingresar la ciudad</mat-error>
+            </mat-form-field>
+          </div>
+        </mat-card>
+    </section>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button mat-button [mat-dialog-close]="true" >Cerrar</button>
+    <button mat-button [disabled]="formInsertar.invalid" type="submit" >Agregar</button>
+  </mat-dialog-actions>
+</form>

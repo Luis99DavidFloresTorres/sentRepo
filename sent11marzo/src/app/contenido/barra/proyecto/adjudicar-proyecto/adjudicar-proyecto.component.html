@@ -1,0 +1,48 @@
+<div fxLayoutAlign="center center" fxLayoutGap="5px">
+  <button mat-raised-button color="primary"><mat-icon>save</mat-icon>Guardar</button>
+  <button mat-raised-button color="warn"><mat-icon>delete</mat-icon>Eliminar</button>
+  <button mat-raised-button color="accent" (click)="buscar()"><mat-icon>search</mat-icon>Buscar</button>
+  <button mat-raised-button><mat-icon></mat-icon>Cerrar</button>
+</div>
+<form [formGroup]="formGroup" fxLayout="column" fxLayoutAlign="center center">
+  <mat-form-field>
+    <mat-label>Código Proyecto</mat-label>
+    <input matInput formControlName="codigoProyecto">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Nombre Proyecto</mat-label>
+    <input matInput formControlName="nombreProyecto">
+  </mat-form-field>
+  <mat-form-field appearance="legacy">
+    <mat-label>Fecha registro</mat-label>
+    <input required  matInput placeholder="mm-dd-aaaa" name="fecha" formControlName="fechaTransaccion" [matDatepicker]="fechaF">
+    <mat-datepicker-toggle matSuffix [for]="fechaF"></mat-datepicker-toggle>
+    <mat-datepicker #fechaF></mat-datepicker>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Detalle</mat-label>
+    <input matInput formControlName="detalle">
+  </mat-form-field>
+  <mat-form-field style="width: 10%;">
+    <mat-label >Estado</mat-label>
+    <mat-select formControlName="estado">
+      <mat-option (click)="estadoFunction()" *ngFor="let estadoFor of estado" [value]="estadoFor">
+        {{estadoFor}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <div fxLayout="row">
+    <mat-form-field>
+      <mat-label>Cotizacion cliente</mat-label>
+      <input matInput>
+    </mat-form-field>
+    <div>
+      <mat-label>Monto</mat-label>
+      <input matInput formControlName="monto">
+    </div>
+  </div>
+  <div fxLayoutAlign="center center">
+    <mat-label>Actualizado por: {{useract}} en: {{fechaact}}</mat-label>
+  </div>
+</form>

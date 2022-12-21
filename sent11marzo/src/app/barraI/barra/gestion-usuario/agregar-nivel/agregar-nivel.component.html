@@ -1,0 +1,20 @@
+<mat-card-content>
+  <mat-form-field class="example-full-width" appearance="fill">
+    <mat-label>Nombre del perfil del usuario</mat-label>
+    <input type="text"
+
+           placeholder="Nivel del Usuario"
+           aria-label="Niveles"
+           matInput
+           [formControl]="myControl"
+           required
+           [matAutocomplete]="auto">
+    <mat-autocomplete #auto="matAutocomplete">
+      <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+        {{option}}
+      </mat-option>
+    </mat-autocomplete>
+
+  </mat-form-field>
+  <button color="primary" mat-button (click)="guardar()">Guardar</button>
+</mat-card-content>

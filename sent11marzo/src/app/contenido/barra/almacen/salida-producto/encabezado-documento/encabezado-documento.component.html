@@ -1,0 +1,72 @@
+<form fxFlex fxLayout= "column" [formGroup]="formGroup">
+  <div fxLayoutGap = "10%">
+    <mat-form-field>
+      <mat-label>Nro Doc IP</mat-label>
+    <input matInput formControlName="nroDoc">
+    </mat-form-field>
+    <mat-form-field appearance="legacy">
+      <mat-label>Ingrese fecha deseada</mat-label>
+      <input required  matInput placeholder="mm-dd-aaaa" name="fecha" formControlName="fechaTransaccion" [matDatepicker]="fechaF">
+      <mat-datepicker-toggle matSuffix [for]="fechaF"></mat-datepicker-toggle>
+      <mat-datepicker #fechaF></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput readonly="true" value="{{estado}}">
+    </mat-form-field>
+  </div>
+  <mat-form-field style="width: 10%;">
+    <mat-label>Entrega para:</mat-label>
+      <mat-select formControlName="salidaOperacion">
+        <mat-option (click)="capturarOperacion()" *ngFor="let salidaOpe of salida" [value]="salidaOpe">
+          {{salidaOpe}}
+        </mat-option>
+      </mat-select>
+  </mat-form-field>
+  <mat-form-field style="width: 10%;">
+    <mat-label>Nro/NOTA Factura</mat-label>
+    <input matInput formControlName="notaventa" type="number">
+  </mat-form-field>
+  <mat-form-field style="width: 30%;">
+    <mat-label>Nombre/Operacion Proyecto</mat-label>
+    <input matInput>
+  </mat-form-field>
+  <div style="width: 30%;" class="example-full-width">
+    <div style="width: 30%;" fxFlex>
+      <mat-form-field>
+        <input type="text"
+              placeholder="Nombre del Cliente"
+              aria-label="Cliente"
+              matInput
+              formControlName="myControl"
+              required
+              [matAutocomplete]="auto">
+        <mat-autocomplete #auto="matAutocomplete">
+          <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+            {{option}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+    </div>
+    <div >
+      <button mat-icon-button (click)="agregarCliente()" color="accent"><mat-icon>add</mat-icon></button>
+      <button mat-icon-button (click)="guardarCliente()" color="primary"><mat-icon>save</mat-icon></button>
+      <button mat-icon-button (click)="cancelarCliente()" color="warn"><mat-icon>cancel</mat-icon></button>
+    </div>
+  </div>
+  <mat-form-field style="width: 30%;">
+    <mat-label>Contacto Cliente</mat-label>
+    <input matInput>
+  </mat-form-field>
+  <mat-form-field style="width: 30%;">
+    <mat-label>Deposito</mat-label>
+    <mat-select  formControlName="deposito">
+      <mat-option (click)="depositoClick()" *ngFor="let depositoF of deposito" [value]="depositoF">
+        {{depositoF}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field style="width: 50%;">
+    <mat-label>Observaciones</mat-label>
+    <input matInput formControlName="observacion">
+  </mat-form-field>
+</form>

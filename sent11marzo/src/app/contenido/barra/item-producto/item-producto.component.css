@@ -1,0 +1,30 @@
+#agregar{
+  position: absolute;
+  right: 30px;
+  left: 30px;
+  top: auto;
+}
+::ng-deep.mat-form-field-underline {
+  /*change color of underline*/
+  background-color: black !important;
+}
+input{
+  color:black;
+}
+::ng-deep .mat-checkbox-frame {
+  border-color: black;
+}
+::ng-deep .menu {
+  margin-top: 0px;
+  background-color: lightpink;
+}
+::ng-deep .boton {
+  background-color: dimgrey;
+}
+#divbotones{
+  background-color: gray;
+}
+::ng-deep .boton:hover {
+  color: dimgrey;
+
+}

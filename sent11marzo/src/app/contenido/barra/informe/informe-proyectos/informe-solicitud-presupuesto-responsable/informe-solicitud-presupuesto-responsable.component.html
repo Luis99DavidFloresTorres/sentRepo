@@ -1,0 +1,86 @@
+<div fxLayoutAlign= "center center" >
+  <mat-form-field  color= "primary" fxFlex="30%">
+    <input matInput id="input" placeholder="buscador" (keyup)="hacerFiltro($any($event.target).value)">
+    <mat-icon fxFlex color="primary">search</mat-icon>
+  </mat-form-field> &nbsp;&nbsp;
+</div>
+<div fxLayoutAlign="center center">
+<button mat-raised-button (click)="buscarItems()"><mat-icon>search</mat-icon></button>
+<button mat-raised-button ><mat-icon>print</mat-icon></button>
+</div>
+<form fxLayout="row" [formGroup]="informeVentas" fxLayoutAlign="space-around">
+<mat-card >
+  <mat-card-title>Periodos del Informe</mat-card-title>
+  <mat-form-field appearance="legacy">
+    <mat-label>Desde:</mat-label>
+    <input required  matInput placeholder="mm-dd-aaaa" name="fechaD" formControlName="fechaDesde" [matDatepicker]="fechaD">
+    <mat-datepicker-toggle matSuffix [for]="fechaD"></mat-datepicker-toggle>
+    <mat-datepicker #fechaD></mat-datepicker>
+  </mat-form-field>
+  <mat-form-field appearance="legacy">
+    <mat-label>Hasta</mat-label>
+    <input required  matInput placeholder="mm-dd-aaaa" name="fechaH" formControlName="fechaHasta" [matDatepicker]="fechaH">
+    <mat-datepicker-toggle matSuffix [for]="fechaH"></mat-datepicker-toggle>
+    <mat-datepicker #fechaH></mat-datepicker>
+  </mat-form-field>
+</mat-card>
+<mat-card >
+  <mat-card-title>Datos del Informe</mat-card-title>
+  <section class="example-section">
+    <mat-form-field >
+      <mat-label >Responsable</mat-label>
+      <mat-select formControlName="responsable" >
+        <mat-option (click)="indx(i)"  *ngFor="let responsable of responsables; let i = index" [value]="responsable">
+          {{responsable}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </section>
+</mat-card>
+</form>
+<mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
+  <ng-container matColumnDef="id" >
+    <mat-header-cell  *matHeaderCellDef mat-sort-header>Id</mat-header-cell>
+    <mat-cell *matCellDef="let element">  {{element.id}} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="fecha">
+    <mat-header-cell  *matHeaderCellDef mat-sort-header>Fecha</mat-header-cell>
+    <mat-cell *matCellDef="let element">  {{element.fecha | date: 'dd/MM/yyyy'}} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="nrodoc">
+    <mat-header-cell  *matHeaderCellDef mat-sort-header>Nro documento</mat-header-cell>
+    <mat-cell *matCellDef="let element">  {{element.nrodoc}} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="proyecto.nombre">
+    <mat-header-cell  *matHeaderCellDef mat-sort-header>Proyecto</mat-header-cell>
+    <mat-cell *matCellDef="let element">  {{element.proyecto.nombre}} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="proyecto.cliente.nombre">
+    <mat-header-cell  *matHeaderCellDef mat-sort-header>Cliente</mat-header-cell>
+    <mat-cell *matCellDef="let element">  {{element.proyecto.cliente.nombre}} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="useract">
+    <mat-header-cell  *matHeaderCellDef mat-sort-header>Solicitante</mat-header-cell>
+    <mat-cell *matCellDef="let element">  {{element.useract}} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="detalle">
+    <mat-header-cell  *matHeaderCellDef mat-sort-header>Concepto</mat-header-cell>
+    <mat-cell *matCellDef="let element">  {{element.detalle}} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="montodescargo">
+    <mat-header-cell  *matHeaderCellDef mat-sort-header>Monto</mat-header-cell>
+    <mat-cell *matCellDef="let element">  {{element.montodescargo}} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="monto">
+    <mat-header-cell  *matHeaderCellDef mat-sort-header>Monto</mat-header-cell>
+    <mat-cell *matCellDef="let element">  {{element.monto}} </mat-cell>
+  </ng-container>
+<mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+<mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+</mat-table>
+<form fxLayoutAlign = "end">
+  <mat-form-field>
+    <mat-label>Monto Total</mat-label>
+    <input matInput [formControl]="total">
+  </mat-form-field>
+</form>

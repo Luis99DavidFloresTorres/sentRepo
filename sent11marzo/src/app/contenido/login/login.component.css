@@ -1,0 +1,8 @@
+::ng-deep .cliente {
+  /*change color of underline*/
+  background-color: green !important;
+}
+::ng-deep .registrar {
+  /*change color of underline*/
+  background-color: orange !important;
+}

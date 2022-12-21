@@ -1,0 +1,20 @@
+<form class="example-form">
+  <mat-form-field class="example-full-width" appearance="fill">
+    <mat-label>Nombre del Producto</mat-label>
+    <input type="text"
+
+           placeholder="Nombre del Producto"
+           aria-label="Productos"
+           matInput
+           [formControl]="myControl"
+           required
+           [matAutocomplete]="auto">
+    <mat-autocomplete #auto="matAutocomplete">
+      <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+        {{option}}
+      </mat-option>
+    </mat-autocomplete>
+
+  </mat-form-field>
+  <button mat-raised-button color="primary" [disabled]="myControl.invalid" (click)="buscarNombre()">Buscar</button>
+</form>

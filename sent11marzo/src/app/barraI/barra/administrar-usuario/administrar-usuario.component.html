@@ -1,0 +1,97 @@
+<mat-horizontal-stepper (selectionChange)="selectionChange($event)">
+  <mat-step label="Mostrar funciones" linear >
+    <mat-table [dataSource]="dataSourceClases" *ngIf="dataSourceClases" class="mat-elevation-z8" >
+      <ng-container matColumnDef="nombre" >
+        <mat-header-cell  *matHeaderCellDef >Nombres</mat-header-cell>
+        <mat-cell *matCellDef="let element">  {{element.nombre}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="operacion" >
+        <mat-header-cell  *matHeaderCellDef >Operaciones</mat-header-cell>
+        <mat-cell *matCellDef="let element">  <button mat-button color="primary" (click) = "mostrar(element.id)"><mat-icon>edit</mat-icon></button> <button mat-button color="primary" (click) = "eliminar(element.id)"><mat-icon>delete</mat-icon> </button> </mat-cell>
+
+      </ng-container>
+      <mat-header-row *matHeaderRowDef="displayedColumnsClases"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumnsClases;"></mat-row>
+    </mat-table>
+  </mat-step>
+  <mat-step label="Eleccion de funcion del Usuario">
+    <h2>Paso 1</h2>
+    <h1 fxLayoutAlign="center center">Seleccione el Perfil deseado</h1>
+    <div>
+      <div>
+        <mat-label>Modulo</mat-label>
+        <mat-chip-list
+        class="example-chip"
+        cdkDropList
+
+        (cdkDropListDropped)="drop($event)">
+        <mat-chip
+          class="example-box"
+          cdkDrag
+          *ngFor="let clases of nombresClases;" >
+          {{clases}}<mat-icon   (click)="clickChip([clases])">done</mat-icon>
+        </mat-chip>
+        </mat-chip-list>
+      </div>
+      <div fxFlex>
+        <mat-label>Funcionalidad</mat-label>
+        <mat-chip-list
+        class="example-chip"
+        cdkDropList
+        cdkDropListOrientation="vertical"
+        (cdkDropListDropped)="drop($event)">
+        <mat-chip
+          class="example-box"
+          cdkDrag
+          *ngFor="let clases of nombressubClases;" class="orange">
+          {{clases}}<mat-icon   (click)="clickChip([clases])">done</mat-icon>
+        </mat-chip>
+        </mat-chip-list>
+      </div>
+      <div>
+        <mat-label>Elegidos</mat-label>
+        <mat-chip-list
+        class="example-chip"
+        cdkDropList
+
+        (cdkDropListDropped)="drop($event)">
+        <mat-chip
+          class="example-box"
+          cdkDrag
+          *ngFor="let clases of elegidos;" class="verde">
+          {{clases}}
+         <mat-icon  (click)="eliminarEleccion([clases])" >cancel</mat-icon>
+        </mat-chip>
+        </mat-chip-list>
+      </div>
+    </div>
+  </mat-step>
+  <mat-step label="Eleccion de nombre">
+    <h2>Paso 2 (final)</h2>
+    <h1 fxLayoutAlign="center center">Introduzca el nombre y verifique el perfil</h1>
+    <div>
+    <mat-form-field>
+      <mat-label >Ingrese el nombre del nivel</mat-label>
+      <input [formControl]="controlNivel" matInput>
+    </mat-form-field>
+  </div>
+  <div>
+    <mat-table [dataSource]="dataSource"  class="mat-elevation-z8" >
+      <ng-container matColumnDef="clase" >
+        <mat-header-cell  *matHeaderCellDef >Clase</mat-header-cell>
+        <mat-cell *matCellDef="let element">  {{element.clase}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="subclase">
+        <mat-header-cell  *matHeaderCellDef>Sub Clase</mat-header-cell>
+        <mat-cell *matCellDef="let element">  {{element.subclase}} </mat-cell>
+      </ng-container>
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+  </div>
+  <div>
+  <button [disabled]="controlNivel.invalid" mat-raised-button color="accent" (click)="enviarBD()">Guardar proceso</button>
+  </div>
+  </mat-step>
+
+</mat-horizontal-stepper>

@@ -1,0 +1,287 @@
+
+<h1 style="background-color: violet" fxLayoutAlign = "center center">
+<span style="font-style: oblique;">Busqueda : {{valor}}</span>
+</h1>
+
+<div fxLayoutAlign= "center center" >
+  <mat-form-field  color= "primary" fxFlex="30%">
+    <input matInput id="input" placeholder="buscador" (keyup)="hacerFiltro($any($event.target).value)">
+    <mat-icon fxFlex color="primary">search</mat-icon>
+
+  </mat-form-field> &nbsp;&nbsp;
+  <form [formGroup]="formCheckboxGroup">
+    <!--<mat-checkbox formControlName="check1" color="primary" (click)="productoValoradoContable()" style="color: black;">Producto Valorado</mat-checkbox> &nbsp;-->
+    <button mat-raised-button color="primary" (click)="imprimirTodo()">Imprimir todo</button> &nbsp;
+   <!-- <button mat-raised-button color="primary" (click)="imprimirBuscados()">Imprimir Buscados</button>-->
+  </form>
+
+</div>
+<div>
+<div fxFlex fxLayout="left" style="width: 100%; ">
+  <div fxFlex fxLayout="column" fxLayoutGap="20%" id="divbotones">
+    <button mat-raised-button [matMenuTriggerFor]="beforeMenuProveedores" color="primary">Fechas</button>
+    <mat-menu #beforeMenuProveedores="matMenu" color="primary" class="menu">
+      <button mat-menu-item (click)="mayorIngresos()" color="basic" class= "boton">Mayor Ingresos</button>
+      <button mat-menu-item (click)="mayorSalidas()" class="boton" >Mayor Salidas</button>
+      <button mat-menu-item (click)="productoPeriodo()" class="boton" >Producto Periodo</button>
+      <button mat-menu-item (click)="kardexFecha()" class="boton" >Kardex</button>
+    </mat-menu>
+    <button mat-raised-button [matMenuTriggerFor]="FindByName" color="primary">Productos</button>
+    <mat-menu #FindByName="matMenu"  color="primary" class="menu">
+      <button mat-menu-item  color="basic" (click)="mayorIngresosNombre()" class= "boton">Mayor Ingresos</button>
+      <button mat-menu-item (click)="mayorSalidasNombre()"  class="boton" >Mayor Salidas</button>
+      <button mat-menu-item (click)="kardexNombre()" class="boton" >Kardex</button>
+    </mat-menu>
+    <button mat-raised-button [matMenuTriggerFor]="FindByNameDate" color="primary">Fechas y Productos</button>
+    <mat-menu #FindByNameDate="matMenu" color="primary" class="menu">
+      <button mat-menu-item (click)="mayorIngresosNombreFecha()" color="basic" class= "boton">Mayor Ingresos</button>
+      <button mat-menu-item (click)="mayorSalidasNombreFecha()" class="boton" >Mayor Salidas</button>
+      <button mat-menu-item (click)="kardexNombreFecha()" class="boton" >Kardex</button>
+    </mat-menu>
+    <button mat-raised-button [matMenuTriggerFor]="FindBetween2Dates" color="primary">Entre 2 fechas</button>
+    <mat-menu #FindBetween2Dates="matMenu" color="primary" class="menu">
+      <button mat-menu-item (click)="entre2fechas()" color="basic" class= "boton">Producto por Periodo</button>
+      <button mat-menu-item (click)="entre2fechasProductoValorado()" color="basic" class= "boton">Producto Valorado</button>
+      <button mat-menu-item (click)="entre2fechasSalidas()" color="basic" class= "boton">Salidas</button>
+      <button mat-menu-item (click)="entre2fechasIngresos()" color="basic" class= "boton">Ingresos</button>
+      <button mat-menu-item (click)="entre2fechasKardex()" color="basic" class= "boton">Kardex</button>
+    </mat-menu>
+    <button mat-raised-button [matMenuTriggerFor]="FindBetween2DatesProductos" color="primary">Entre 2 fechas y productos</button>
+    <mat-menu #FindBetween2DatesProductos="matMenu" color="primary" class="menu">
+      <button mat-menu-item (click)="entre2fechasPeriodosProductos()" color="basic" class= "boton">Producto por Periodo</button>
+      <button mat-menu-item (click)="entre2fechasSalidasProductos()" color="basic" class= "boton">Salidas</button>
+      <button mat-menu-item (click)="entre2fechasIngresosProductos()" color="basic" class= "boton">Ingresos</button>
+      <button mat-menu-item (click)="entre2fechasKardexProductos()" color="basic" class= "boton">Kardex</button>
+    </mat-menu>
+  </div>
+</div>
+
+<div  *ngIf="tabla" style="width:100%">
+<mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
+  <ng-container matColumnDef="costo">
+    <mat-header-cell  *matHeaderCellDef mat-sort-header>Costo</mat-header-cell>
+    <mat-cell *matCellDef="let element">  {{element.costo}} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="depositoNombre">
+    <mat-header-cell  *matHeaderCellDef mat-sort-header>
+      <mat-label>Deposito Nombre</mat-label>
+      <mat-select [formControl]="depositoNombreControl">
+        <mat-option  (click)="nombreDepositoClick()" *ngFor="let datosNombDeposito of datosDepositoNombre" [value]="datosNombDeposito">
+          {{datosNombDeposito}}
+        </mat-option>
+      </mat-select>
+    </mat-header-cell>
+    <mat-cell *matCellDef="let element">  {{element.depositoNombre}} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="producto_id">
+    <mat-header-cell  *matHeaderCellDef mat-sort-header><input matInput placeholder="Producto Id"></mat-header-cell>
+    <mat-cell *matCellDef="let element">  {{element.producto_id}} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="nombre">
+    <mat-header-cell  *matHeaderCellDef mat-sort-header>
+      <mat-label>Descripcion</mat-label>
+      <mat-select [formControl]="nombreControl">
+        <mat-option  (click)="nombreClick()" *ngFor="let datosNomb of datosNombre" [value]="datosNomb">
+          {{datosNomb}}
+        </mat-option>
+      </mat-select>
+    </mat-header-cell>
+    <mat-cell *matCellDef="let element">  {{element.nombre}} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="cantidad">
+    <mat-header-cell  *matHeaderCellDef mat-sort-header>
+      <mat-label>Cantidad</mat-label>
+      <mat-select [formControl]="cantidadControl">
+        <mat-option  (click)="cantidadClick()" *ngFor="let datosCant of datosCantidad" [value]="datosCant">
+          {{datosCant}}
+        </mat-option>
+      </mat-select>
+    </mat-header-cell>
+    <mat-cell *matCellDef="let element">  {{element.cantidad}} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="serial">
+    <mat-header-cell  *matHeaderCellDef mat-sort-header>
+      <mat-label>Serial</mat-label>
+      <mat-select [formControl]="serialControl">
+        <mat-option  (click)="serialClick()" *ngFor="let datosProv of datosSerial" [value]="datosProv">
+          {{datosProv}}
+        </mat-option>
+      </mat-select>
+    </mat-header-cell>
+    <mat-cell *matCellDef="let element">  {{element.serial}} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="proveedorNombre">
+    <mat-header-cell  *matHeaderCellDef mat-sort-header>
+      <mat-label>Nombre proveedor</mat-label>
+      <mat-select [formControl]="proveedorControl">
+        <mat-option  (click)="proveedorClick()" *ngFor="let datosProv of datosProveedor" [value]="datosProv">
+          {{datosProv}}
+        </mat-option>
+      </mat-select>
+    </mat-header-cell>
+    <mat-cell *matCellDef="let element">  {{element.proveedorNombre}} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="clienteNombre">
+    <mat-header-cell  *matHeaderCellDef mat-sort-header>
+      <mat-label>Nombre Cliente</mat-label>
+      <mat-select [formControl]="clienteControl">
+        <mat-option  (click)="clienteClick()" *ngFor="let datosCli of datosCliente" [value]="datosCli">
+          {{datosCli}}
+        </mat-option>
+      </mat-select>
+    </mat-header-cell>
+    <mat-cell *matCellDef="let element">  {{element.clienteNombre}} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="ope">
+    <mat-header-cell  *matHeaderCellDef mat-sort-header>
+      <mat-label>Operacion</mat-label>
+      <mat-select [formControl]="operacionControl">
+        <mat-option  (click)="operacionClick()" *ngFor="let op of datosOpe" [value]="op">
+          {{op}}
+        </mat-option>
+      </mat-select>
+    </mat-header-cell>
+    <mat-cell *matCellDef="let element">  {{element.ope|oper}} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="nrodoc">
+    <mat-header-cell  *matHeaderCellDef mat-sort-header>
+      <mat-label>Nro Doc</mat-label>
+      <mat-select [formControl]="nroDocControl">
+        <mat-option  (click)="nroDocClick()" *ngFor="let datosDoc of datosNroDoc" [value]="datosDoc">
+          {{datosDoc}}
+        </mat-option>
+      </mat-select>
+    </mat-header-cell>
+    <mat-cell *matCellDef="let element">  {{element.nrodoc}} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="fechaact">
+    <mat-header-cell  *matHeaderCellDef mat-sort-header>
+      <mat-label>Fecha</mat-label>
+      <mat-select [formControl]="fechaControl">
+        <mat-option  (click)="fechaClick()" *ngFor="let datosFecha of datosFechaact" [value]="datosFecha">
+          {{datosFecha}}
+        </mat-option>
+      </mat-select>
+    </mat-header-cell>
+    <mat-cell *matCellDef="let element">  {{element.fechaact|date: 'dd/MM/yyyy'}} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="observaciones">
+    <mat-header-cell  *matHeaderCellDef mat-sort-header>
+      <mat-label>Observaciones</mat-label>
+      <mat-select [formControl]="observacionesControl">
+        <mat-option  (click)="observacionesClick()" *ngFor="let datosObs of datosObservaciones" [value]="datosObs">
+          {{datosObs}}
+        </mat-option>
+      </mat-select>
+    </mat-header-cell>
+    <mat-cell *matCellDef="let element">  {{element.observaciones}} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="codigo">
+    <mat-header-cell  *matHeaderCellDef mat-sort-header>
+      <mat-label>Codigo</mat-label>
+      <mat-select [formControl]="codigoControl">
+        <mat-option  (click)="codigoClick()" *ngFor="let datosCod of datosCodigo" [value]="datosCod">
+          {{datosCod}}
+        </mat-option>
+      </mat-select>
+    </mat-header-cell>
+    <mat-cell *matCellDef="let element">  {{element.codigo}} </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="invinicial">
+    <mat-header-cell  *matHeaderCellDef mat-sort-header>
+      <mat-label>Saldo Inicial</mat-label>
+      <mat-select [formControl]="invinicialControl">
+        <mat-option  (click)="invinicialClick()" *ngFor="let datosInv of datosInvinicial" [value]="datosInv">
+          {{datosInv}}
+        </mat-option>
+      </mat-select>
+    </mat-header-cell>
+    <mat-cell *matCellDef="let element">  {{element.invinicial}} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="saldo">
+    <mat-header-cell  *matHeaderCellDef mat-sort-header>
+      <mat-label>Saldo</mat-label>
+      <mat-select [formControl]="saldoControl">
+        <mat-option  (click)="saldoClick()" *ngFor="let datosSal of datosSaldo" [value]="datosSal">
+          {{datosSal}}
+        </mat-option>
+      </mat-select>
+    </mat-header-cell>
+    <mat-cell *matCellDef="let element">  {{element.saldo}} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="ingresos">
+    <mat-header-cell  *matHeaderCellDef mat-sort-header>
+      <mat-label>Ingresos</mat-label>
+      <mat-select [formControl]="ingresosControl">
+        <mat-option  (click)="ingresosClick()" *ngFor="let datosIng of datosIngresos" [value]="datosIng">
+          {{datosIng}}
+        </mat-option>
+      </mat-select>
+    </mat-header-cell>
+    <mat-cell *matCellDef="let element">  {{element.ingresos}} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="salidas">
+    <mat-header-cell  *matHeaderCellDef mat-sort-header>
+      <mat-label>Salidas</mat-label>
+      <mat-select [formControl]="salidasControl">
+        <mat-option  (click)="salidasClick()" *ngFor="let datosSal of datosSalidas" [value]="datosSal">
+          {{datosSal}}
+        </mat-option>
+      </mat-select>
+    </mat-header-cell>
+    <mat-cell *matCellDef="let element">  {{element.salidas}} </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="unidad">
+    <mat-header-cell  *matHeaderCellDef mat-sort-header>
+      <mat-label>Unidad</mat-label>
+      <mat-select [formControl]="unidadControl">
+        <mat-option  (click)="unidadClick()" *ngFor="let datosU of datosUnidad" [value]="datosU">
+          {{datosU}}
+        </mat-option>
+      </mat-select>
+    </mat-header-cell>
+    <mat-cell *matCellDef="let element">  {{element.unidad}} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="transproducto.nrodoc">
+    <mat-header-cell  *matHeaderCellDef mat-sort-header>Numero documento
+    </mat-header-cell>
+    <mat-cell *matCellDef="let element">  {{element.transproducto.nrodoc}} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="transproducto.oper">
+    <mat-header-cell  *matHeaderCellDef mat-sort-header>Oper</mat-header-cell>
+    <mat-cell *matCellDef="let element">  {{element.transproducto.oper|ope}} </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="transproducto.fecha">
+    <mat-header-cell  *matHeaderCellDef mat-sort-header>Fecha</mat-header-cell>
+    <mat-cell *matCellDef="let element">  {{element.transproducto.fecha|date: 'dd/MM/yyyy'}} </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="transproducto.detalle">
+    <mat-header-cell  *matHeaderCellDef mat-sort-header>Observaciones</mat-header-cell>
+    <mat-cell *matCellDef="let element">  {{element.transproducto.detalle}} </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="costoTotal">
+    <mat-header-cell  *matHeaderCellDef mat-sort-header>Costo Total</mat-header-cell>
+    <mat-cell *matCellDef="let element">  {{element.costoTotal}} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="transproducto.cliente.nombre">
+    <mat-header-cell  *matHeaderCellDef mat-sort-header>Cliente</mat-header-cell>
+    <mat-cell *matCellDef="let element">  {{element.transproducto.cliente.nombre}} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="transproducto.proveedor.nombre">
+    <mat-header-cell  *matHeaderCellDef mat-sort-header>Proveedor</mat-header-cell>
+    <mat-cell *matCellDef="let element">  {{element.transproducto.proveedor|nullWithDefault}} </mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+</mat-table>
+<mat-paginator [length]="10" [pageSizeOptions]="[10,100,1000]">
+</mat-paginator>
+
+</div>
+</div>
